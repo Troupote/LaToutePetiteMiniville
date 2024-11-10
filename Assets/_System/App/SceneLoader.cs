@@ -5,7 +5,10 @@ using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
-    public static SceneLoader I;
+
+    #region Fields
+
+    public static SceneLoader Instance;
 
     [SerializeField]
     private GameObject _loadingScreen;
@@ -15,11 +18,13 @@ public class SceneLoader : MonoBehaviour
 
     private Coroutine _loadingCoroutine;
 
+    #endregion
+
     private void Awake()
     {
-        if (I == null)
+        if (Instance == null)
         {
-            I = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
