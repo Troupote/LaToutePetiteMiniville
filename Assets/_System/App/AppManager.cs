@@ -57,8 +57,10 @@ public class AppManager : MonoBehaviour
 
     private void Start()
     {
+        _currentAppState = AppState.MainMenu;
+
         //Initial state
-        Menu();
+        //Menu();
     }
 
     #endregion
