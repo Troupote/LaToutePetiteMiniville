@@ -36,6 +36,11 @@ public class SceneLoader : MonoBehaviour
         _transitionAnimator = _loadingScreen.GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        _loadingScreen.SetActive(false);
+    }
+
     public bool LoadScene(string sceneName)
     {
         if (SceneManager.GetActiveScene().name == sceneName)
