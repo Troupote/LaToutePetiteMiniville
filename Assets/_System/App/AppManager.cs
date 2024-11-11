@@ -28,61 +28,82 @@ public class AppManager : MonoBehaviour
     public static AppManager Instance;
 
     private const string _mainMenuSceneName = "SC_MainMenu";
+    private const string _gameSceneName = "SC_Game";
 
     /// <summary>
     /// The current <see cref="AppState"/>.
     /// </summary>
     private AppState _currentAppState;
 
-
     #endregion
+
+    #region Lifecycle
 
     /// <summary>
     /// Ensures only one instance of GameManager exists using Singleton.
     /// </summary>
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
-        if (_currentAppState == AppState.None)
-            _currentAppState = AppState.MainMenu;
-
-        ChangeState(AppState.MainMenu);
+        //Initial state
+        Menu();
     }
 
-    /// <summary>
-    /// Changes the game state and loads the corresponding scene.
-    /// </summary>
-    /// <param name="targetState">The new game state.</param>
-    private void ChangeState(AppState targetState)
+    #endregion
+
+    #region Private API
+    #endregion
+
+    #region Public API
+
+    public bool Menu()
     {
-        _currentAppState = targetState;
+        _currentAppState = AppState.MainMenu;
+        SceneLoader.Instance.LoadScene(_mainMenuSceneName);
 
-        switch (_currentAppState)
-        {
-            case AppState.MainMenu:
-                SceneLoader.Instance.LoadScene(_mainMenuSceneName);
-                break;
-            case AppState.Game:
-                SceneLoader.Instance.LoadScene("CityView");
-                break;
-            case AppState.Credits:
-                SceneLoader.Instance.LoadScene("BuildingMenu");
-                break;
-            default:
-                Debug.LogError("Error ! Invalid application state.");
-                break;
-        }
+        return true;
     }
+
+    public bool Play()
+    {
+        if (_currentAppState != AppState.MainMenu)
+            return false;
+
+        Debug.Log("App - Play");
+
+        _currentAppState = AppState.Game;
+        return SceneLoader.Instance.LoadScene(_gameSceneName);
+    }
+
+    public bool Credits()
+    {
+        if (_currentAppState != AppState.MainMenu)
+            return false;
+
+        _currentAppState = AppState.Credits;
+        return SceneLoader.Instance.LoadScene("@todo Credit scene name");
+    }
+
+    public bool Quit()
+    {
+        if (_currentAppState != AppState.MainMenu)
+            return false;
+
+        Application.Quit();
+        return true;
+    }
+
+    #endregion
 }

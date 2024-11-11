@@ -33,15 +33,17 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneName)
+    public bool LoadScene(string sceneName)
     {
         if (SceneManager.GetActiveScene().name == sceneName)
-            return;
+            return false;
 
         if (_loadingCoroutine != null)
-            return;
+            return false;
 
         _loadingCoroutine = StartCoroutine(LoadSceneAsync(sceneName));
+
+        return true;
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
@@ -59,6 +61,7 @@ public class SceneLoader : MonoBehaviour
 
             if (asyncLoad.progress >= 0.9f)
             {
+                // Make a little pause to avoid loading the scene too quickly
                 yield return new WaitForSeconds(1f);
                 asyncLoad.allowSceneActivation = true;
             }
