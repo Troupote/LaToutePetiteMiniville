@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MiniVilleMenu_0: -8357006920057296148
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
