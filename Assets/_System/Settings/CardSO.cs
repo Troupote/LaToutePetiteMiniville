@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// The base card asset.
@@ -15,9 +16,17 @@ public abstract class CardSO : ScriptableObject
     [SerializeField]
     private string _description = "";
 
+    [Tooltip("The card renderer")]
+    [SerializeField]
+    private Image _renderer = null;
+
     [Tooltip("The card main color.")]
     [SerializeField]
-    private Color _color = Color.black;
+    private CardActivationType _activationType = CardActivationType.AllTurn;
+
+    [Tooltip("The value required when rolling dice to trigger this card.")]
+    [SerializeField]
+    private int _activationNumber = 0;
 
     [Tooltip("The amount of coin requiered to buy this card.")]
     [SerializeField]
@@ -33,8 +42,14 @@ public abstract class CardSO : ScriptableObject
     ///<inheritdoc cref="_description"/>
     public string Description => _description;
 
+    ///<inheritdoc cref="_renderer"/>
+    public Image Renderer => _renderer;
+
     ///<inheritdoc cref="_color"/>
-    public Color Color => _color;
+    public CardActivationType ActivationType => _activationType;
+
+    /// <inheritdoc cref="_activationNumber"/>
+    public int ActivationNumber => _activationNumber;
 
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;
