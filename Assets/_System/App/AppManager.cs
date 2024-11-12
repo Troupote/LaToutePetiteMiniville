@@ -8,7 +8,7 @@ public class AppManager : MonoBehaviour
     #region Nested
 
     /// <summary>
-    /// Represents the different game states.
+    /// Represents the different app states.
     /// </summary>
     public enum AppState
     {

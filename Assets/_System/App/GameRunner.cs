@@ -4,6 +4,9 @@ public class GameRunner : MonoBehaviour
 {
     #region Nested
 
+    /// <summary>
+    /// Represents the different game states.
+    /// </summary>
     public enum GameState
     {
         StartGame,

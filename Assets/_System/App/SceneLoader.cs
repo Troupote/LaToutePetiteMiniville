@@ -5,7 +5,6 @@ using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
-
     #region Fields
 
     public static SceneLoader Instance;
@@ -13,7 +12,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField]
     private GameObject _loadingScreen;
 
-    [SerializeField]
+    [SerializeField] 
     private Slider _progressBar;
 
     private Coroutine _loadingCoroutine;
