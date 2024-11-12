@@ -10,19 +10,20 @@ public class GameRunner : MonoBehaviour
     public enum GameState
     {
         StartGame,
-        PlayerTurnStart,
-        RollDice,
-        ResolveDiceRoll,
-        ActivateEstablishments,
-        PurchaseEstablishment,
-        EndTurn,
-        CheckWinCondition,
+        PlayerTurn,
+        AITurn,
         GameOver
     }
 
     #endregion
 
     #region
+
+    [SerializeField]
+    private PlayerComponent _player = null;
+
+    [SerializeField]
+    private AIComponent _aiComponent = null;
 
     /// <summary>
     /// The current game state.
