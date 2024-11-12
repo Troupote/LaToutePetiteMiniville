@@ -39,5 +39,10 @@ public abstract class CardSO : ScriptableObject
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;
 
+    public void ApplyEffect()
+    {
+         
+    }
+
     #endregion
 }
