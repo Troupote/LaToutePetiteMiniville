@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class AIComponent : MonoBehaviour
+public class AIComponent : EntityComponent
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Init();
     }
 }
