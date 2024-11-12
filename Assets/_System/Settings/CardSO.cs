@@ -58,17 +58,26 @@ public abstract class CardSO : ScriptableObject
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;
 
-    public GameObject Build()
-    {
-       GameObject card = Instantiate(_prefab);
 
-        if (!card.TryGetComponent<CardComponent>(out CardComponent cardComponent))
+    /// <summary>
+    /// Build a card using this <see cref="CardSO"/>
+    /// </summary>
+    /// <returns>Returns the built <see cref="CardComponent"/>.</returns>
+    public CardComponent Build()
+    {
+        GameObject cardObj = Instantiate(_prefab);
+
+        if (!cardObj.TryGetComponent<CardComponent>(out CardComponent card))
             Debug.LogError("Failed building card");
 
-        cardComponent.SetAsset(this);
+        card.SetAsset(this);
 
         return card;
     }
+
+    /// <summary>
+    /// Apply the card effect.
+    /// </summary>
     public void ApplyEffect()
     {
     }

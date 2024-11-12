@@ -1,28 +1,38 @@
 using UnityEngine;
 
-public class CardComponent : MonoBehaviour
+/// <summary>
+/// The base class representing a card in runtime.
+/// </summary>
+public abstract class CardComponent : MonoBehaviour
 {
-    [SerializeField]
-    private CardSO _cardSO;
-    private string _name;
-    private Color _color;
-    private int _price;
-    private int _activationNumber;
+    #region Fields
 
-    public void Effect()
+    /// <summary>
+    /// The asset use to set this card datas.
+    /// </summary>
+    private CardSO _cardSO = null;
+
+    #endregion
+
+    #region Public API
+
+    ///<inheritdoc cref="_cardSO"/>
+    public CardSO CardSO => _cardSO;
+
+    /// <summary>
+    /// Set the card data asset.
+    /// </summary>
+    /// <param name="cardSO"></param>
+    public void SetAsset(CardSO cardSO)
+    {
+        _cardSO = cardSO;
+    }
+
+    ///<inheritdoc cref="CardSO.ApplyEffect"/>
+    public void ApplyEffect()
     {
         _cardSO.ApplyEffect();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
