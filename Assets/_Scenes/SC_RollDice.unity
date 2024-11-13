@@ -222,7 +222,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.08, y: 4.58, z: 5.68}
-  m_LocalScale: {x: 12.214, y: 11.35, z: 0.86945355}
+  m_LocalScale: {x: 21.753134, y: 11.35, z: 0.86945355}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -592,7 +592,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.0645, y: 1, z: 1.2193}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -699,7 +699,7 @@ Transform:
   m_GameObject: {fileID: 1238744701}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.47, y: 4.58, z: 0}
+  m_LocalPosition: {x: -9.78, y: 4.58, z: 0}
   m_LocalScale: {x: 1, y: 11.35, z: 10.972}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -791,11 +791,11 @@ MonoBehaviour:
       - m_Target: {fileID: 504229666}
         m_TargetAssemblyTypeName: DiceManagerScript, Assembly-CSharp
         m_MethodName: create_dice
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -941,7 +941,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.08, y: 4.58, z: -5.7}
-  m_LocalScale: {x: 12.214, y: 11.35, z: 0.86945355}
+  m_LocalScale: {x: 21.753134, y: 11.35, z: 0.86945355}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1127,7 +1127,7 @@ Transform:
   m_GameObject: {fileID: 1422424600}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.54, y: 4.58, z: 0}
+  m_LocalPosition: {x: 9.29, y: 4.58, z: 0}
   m_LocalScale: {x: 1, y: 11.35, z: 10.972}
   m_ConstrainProportionsScale: 0
   m_Children: []

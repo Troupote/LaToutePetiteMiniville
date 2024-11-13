@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NewEmptyCSharpScript : MonoBehaviour 
 {
     public Text diceText;
-    private int finalCount = 0;
+    public static int finalCount = 0;
 
     void FixedUpdate()
     {
@@ -15,7 +15,6 @@ public class NewEmptyCSharpScript : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        
         if (col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.x == 0f && col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.y == 0f && col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.z == 0f)
         {
             switch (col.gameObject.name)
