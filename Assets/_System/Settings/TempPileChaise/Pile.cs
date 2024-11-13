@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Pile
 {
     private List<CardSO> _allTurnPile = new();
@@ -27,7 +29,6 @@ public class Pile
         List<CardSO> sortedList = new();
         foreach(CardSO card in list)
         {
-
 
             if (card.ActivationType == type)
             {
