@@ -1,7 +1,4 @@
 using UnityEngine;
-[CreateAssetMenu(fileName = "CardEffectSO_UnlockDice", menuName = "Game/Card/CardEffectSO_UnlockDice", order = 0)]
+[CreateAssetMenu(fileName = "CardEffectSO_UnlockDice", menuName = "Game/Effect/Unlock Dice", order = 0)]
 
-public class CardEffectSO_UnlockDice : CardEffectSO
-{
-
-}
+public class CardEffectSO_UnlockDice : CardEffectSO{}
