@@ -68,8 +68,10 @@ public abstract class CardSO : ScriptableObject
         GameObject cardObj = Instantiate(_prefab);
 
         if (!cardObj.TryGetComponent<CardComponent>(out CardComponent card))
+        {
             Debug.LogError("Failed building card");
-
+            return null;
+        }
         card.SetAsset(this);
 
         return card;
@@ -80,6 +82,7 @@ public abstract class CardSO : ScriptableObject
     /// </summary>
     public void ApplyEffect()
     {
+        //@todo Card Effect
     }
 
     #endregion

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d132cf8c5e1ad6249b06f5264ab5f72f, type: 3}
   m_Name: GameConfigSO
   m_EditorClassIdentifier: 
-  _nbDices: 0
+  _nbDices: 2

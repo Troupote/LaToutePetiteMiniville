@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d266c56c59f40c498d600a8a62dd480, type: 3}
   m_Name: BuildingSO_Ferme
   m_EditorClassIdentifier: 
-  _name: 
-  _description: 
-  _color: {r: 0, g: 0, b: 0, a: 1}
-  _cost: 0
+  _name: Ferme
+  _description: blc
+  _renderer: {fileID: 0}
+  _prefab: {fileID: 0}
+  _activationType: 0
+  _activationNumber: 4
+  _cost: 10
   _isUnique: 0
