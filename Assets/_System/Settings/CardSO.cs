@@ -20,6 +20,10 @@ public abstract class CardSO : ScriptableObject
     [SerializeField]
     private Image _renderer = null;
 
+    [Tooltip("The card prefab")]
+    [SerializeField]
+    private GameObject _prefab = null;
+
     [Tooltip("The card main color.")]
     [SerializeField]
     private CardActivationType _activationType = CardActivationType.AllTurn;
@@ -54,9 +58,31 @@ public abstract class CardSO : ScriptableObject
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;
 
+
+    /// <summary>
+    /// Build a card using this <see cref="CardSO"/>
+    /// </summary>
+    /// <returns>Returns the built <see cref="CardComponent"/>.</returns>
+    public CardComponent Build()
+    {
+        GameObject cardObj = Instantiate(_prefab);
+
+        if (!cardObj.TryGetComponent<CardComponent>(out CardComponent card))
+        {
+            Debug.LogError("Failed building card");
+            return null;
+        }
+        card.SetAsset(this);
+
+        return card;
+    }
+
+    /// <summary>
+    /// Apply the card effect.
+    /// </summary>
     public void ApplyEffect()
     {
-         
+        //@todo Card Effect
     }
 
     #endregion
