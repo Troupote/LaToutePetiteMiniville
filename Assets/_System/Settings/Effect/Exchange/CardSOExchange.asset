@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a658d285c02b854f9c72b0234cde221, type: 3}
-  m_Name: Exchange
+  m_Name: CardSOExchange
   m_EditorClassIdentifier: 
   _name: 
   _description: 
