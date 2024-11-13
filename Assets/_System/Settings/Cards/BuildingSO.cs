@@ -8,7 +8,7 @@ public class BuildingSO : CardSO
     [Tooltip("Is this building unique ?")]
     [SerializeField]
     private bool _isUnique = false;
-
+    [SerializeField] ScriptableObject _effect;
     #endregion
 
     #region Public API
