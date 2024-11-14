@@ -28,16 +28,21 @@ public abstract class CardComponent : MonoBehaviour
         _cardSO = cardSO;
     }
 
-    ///<inheritdoc cref="CardSO.ApplyEffect"/>
-    public void ApplyEffect(EntityComponent user)
+    ///Apply the card effect.
+    public void ApplyEffect(EntityComponent user, EntityComponent opponent)
     {
-        /*_cardSO.ApplyEffect();*/
-
         switch (_cardSO.Effect)
         {
-            //case _cardSO.Effect is :
-            //user.IncrementCoins();
-            //break;
+            case CardEffectSO_GainCoin:
+                CardEffectSO_GainCoin e = _cardSO.Effect as CardEffectSO_GainCoin;
+                user.IncrementCoins(e.GainCoinAmount);
+                break;
+
+            case CardEffectSO_UnlockDice:
+                break;
+
+            case CardEffect_Exchange:
+                break;
         }
 
     }
