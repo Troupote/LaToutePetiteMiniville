@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour
@@ -35,6 +36,8 @@ public class GameRunner : MonoBehaviour
     //@todo Pile field 
 
     private Pile _piles = null;
+
+    private EntityComponent _currentPlayer=null;    
 
     //@todo Dice
 
@@ -93,6 +96,17 @@ public class GameRunner : MonoBehaviour
         // foreach cards in pioche > card.Buy() -> will Build a card
 
         // Check win condition
+    }
+
+    public bool BuyCard(CardSO card)
+    { 
+       if((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
+       return false;
+
+       if(! _piles.DrawCard(card))
+       return false;
+
+       return _currentPlayer.BuyCard(card);
     }
 
     //private void AITurn()
