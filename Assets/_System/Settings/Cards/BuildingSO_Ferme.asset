@@ -20,3 +20,4 @@ MonoBehaviour:
   _activationNumber: 4
   _cost: 10
   _isUnique: 0
+  _effect: {fileID: 11400000, guid: 4b9bb17211db7ea449106b7844889312, type: 2}
