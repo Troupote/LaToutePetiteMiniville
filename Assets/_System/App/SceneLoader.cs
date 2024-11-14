@@ -3,19 +3,31 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// The scene loader manager. Provides methods to load a scene asynchronously.
+/// </summary>
 public class SceneLoader : MonoBehaviour
 {
     #region Fields
 
     public static SceneLoader Instance;
 
+    [Tooltip("Screen animated to make the transition")]
     [SerializeField]
     private GameObject _loadingScreen;
 
+    [Tooltip("Progress bar showing loading status.")]
     [SerializeField] 
     private Slider _progressBar;
 
+    /// <summary>
+    /// Loading process coroutine.
+    /// </summary>
     private Coroutine _loadingCoroutine;
+
+    /// <summary>
+    /// Animator component used to animate the loading screen.
+    /// </summary>
     private Animator _transitionAnimator = null;
 
     #endregion
@@ -40,6 +52,11 @@ public class SceneLoader : MonoBehaviour
         _loadingScreen.SetActive(false);
     }
 
+    /// <summary>
+    /// Loads a scene asynchronously.
+    /// </summary>
+    /// <param name="sceneName">The name of the scene to load.</param>
+    /// <returns>True if the scene loading process has started.</returns>
     public bool LoadScene(string sceneName)
     {
         if (SceneManager.GetActiveScene().name == sceneName)
@@ -56,6 +73,11 @@ public class SceneLoader : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Coroutine to load a scene asynchronously.
+    /// </summary>
+    /// <param name="sceneName">The name of the scene to load.</param>
+    /// <returns>An IEnumerator for the coroutine.</returns>
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         _loadingScreen.SetActive(true);
