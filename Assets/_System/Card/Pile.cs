@@ -55,7 +55,7 @@ public class Pile
         }
     }
 
-    private bool DrawCard(CardSO card)
+    public bool DrawCard(CardSO card)
     {
         if (_piles[card] <= 0)
             return false;
