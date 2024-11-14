@@ -904,7 +904,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _ai: {fileID: 0}
   GameMusic: {fileID: 1271627387}
-  Volume: 0.6
+  Volume: 0.2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
