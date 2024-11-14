@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d132cf8c5e1ad6249b06f5264ab5f72f, type: 3}
+  m_Name: GameConfigSO
+  m_EditorClassIdentifier: 
+  _nbDices: 2
+  _stackSize: 6
+  _cardsArchetypes:
+  - {fileID: 11400000, guid: aab2d57402089c1479ae336da32e9f26, type: 2}
+  - {fileID: 11400000, guid: 9de97f6995611c94cb1068c59cd21c39, type: 2}
+  - {fileID: 11400000, guid: 7ee429f3745d2ff45aee412da21984a3, type: 2}
