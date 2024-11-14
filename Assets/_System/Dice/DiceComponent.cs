@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class DiceComponent : MonoBehaviour
 {
     static Rigidbody rb;
-    private bool _fadeAnimation = false;
-
+    float elapsedTime = 0;
+    float ratio = 0;
 
     [SerializeField]
     private Material _mainMaterial = null;
@@ -15,14 +16,14 @@ public class DiceComponent : MonoBehaviour
     private Material _secondaryMaterial = null;
 
     [SerializeField]
-    private float _duration = 0;
+    private float _duration;
 
     private Coroutine _fadeDiceCoroutine = null;
 
     private void Start()
     {
-        _mainMaterial.color = new Color(255,255,255, 255);
-        _secondaryMaterial.color = new Color(0, 0, 0, 255);
+        _mainMaterial.color = new Color(1,1,1, 1);
+        _secondaryMaterial.color = new Color(0, 0, 0, 1);
         rb = GetComponent<Rigidbody>();
         float dirX = Random.Range(0, 100);
         float dirY = Random.Range(0, 100);
@@ -35,31 +36,20 @@ public class DiceComponent : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (rb.linearVelocity.x == 0f && rb.linearVelocity.y == 0f && rb.linearVelocity.z == 0f && !_fadeAnimation)
+        if (rb.linearVelocity.x == 0f && rb.linearVelocity.y == 0f && rb.linearVelocity.z == 0f)
         {
-            if (_fadeDiceCoroutine == null)
-                StartCoroutine(AnimateDiceFade());
-        }
-    }
-
-    private IEnumerator AnimateDiceFade()
-    {
-        Debug.Log("hey");
-        float elapsedTime = 0;
-        float ratio = 0;
-
-        while (ratio < 1)
-        {
+            _mainMaterial.SetFloat("_SurfaceType", 3.0f);
             ratio = elapsedTime / _duration;
             elapsedTime += Time.deltaTime;
-
             _mainMaterial.color = new Color(_mainMaterial.color.r, _mainMaterial.color.g, _mainMaterial.color.b, 1 - ratio);
             _secondaryMaterial.color = new Color(_secondaryMaterial.color.r, _secondaryMaterial.color.g, _secondaryMaterial.color.b, 1 - ratio);
-            yield return null;
+            if (ratio > 1)
+            {
+                Destroy(gameObject);
+            }
+            Debug.Log(_mainMaterial.color.a);
         }
-
-        Destroy(gameObject);
-        _fadeDiceCoroutine = null;
     }
+    
 
 }
