@@ -9,14 +9,14 @@ public class SlotCard : MonoBehaviour
     [SerializeField]
     private  GameRunner gameRunner = null;
 
-    private EntityComponent _playerCard;
+    private EntityComponent _entity;
 
 
     public void AddCardToPlayer()
     {
-        foreach(var card in _playerCard.Cards)
+        foreach(var card in _entity.Cards)
         {
-            if(card.CardSO.name == _card.name && card.CardSO.ActivationType == CardActivationType.SelfTurn && _card.ActivationType == CardActivationType.SelfTurn)
+            if(card.CardSO == _card &&(_card is BuildingSO building && building.IsUnique))
              return;
             
             gameRunner.BuyCard(_card);
