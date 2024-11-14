@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour
@@ -25,7 +24,6 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private GameConfigSO _config = null;
 
-
     [Header("Players")]
 
     [SerializeField]
@@ -34,8 +32,10 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private AIComponent _ai = null;
 
+    //@todo Pile field 
 
-    //@todo Pioche field > ask for english name 
+    private Pile _piles = null;
+
     //@todo Dice
 
     /// <summary>
@@ -58,8 +58,8 @@ public class GameRunner : MonoBehaviour
 
     private void Init()
     {
-        // Init pioche mdr 
-        // Init players cards
+        //Init piles
+        _piles = new Pile(_config.CardsArchetypes, _config.StackSize);
     }
 
     private void PlayerTurn()
@@ -68,7 +68,7 @@ public class GameRunner : MonoBehaviour
         int dicesValue = 0;
         for (int i = 0; i < _config.NbDices; i++)
         {
-            //dicesValue += _dice.Roll()
+            //dicesValue += _dice.Roll(_config.NbDices);
         }
 
         //Player Effects
@@ -77,7 +77,7 @@ public class GameRunner : MonoBehaviour
             if (card.CardSO.ActivationNumber != dicesValue || (card.CardSO.ActivationType != CardActivationType.SelfTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
                 continue;
 
-            card.ApplyEffect();
+            card.ApplyEffect(_player);
         }
 
         //Opponent Effect
@@ -86,7 +86,7 @@ public class GameRunner : MonoBehaviour
             if (card.CardSO.ActivationNumber != dicesValue || (card.CardSO.ActivationType != CardActivationType.OpponentTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
                 continue;
 
-            card.ApplyEffect();
+            card.ApplyEffect(_ai);
         }
 
         // Purchase Card/Building
@@ -98,9 +98,7 @@ public class GameRunner : MonoBehaviour
     //private void AITurn()
     //{
     //    // Roll Dice
-
     //    // Effects
-
     //    // Purchase Card/Building
     //}
 

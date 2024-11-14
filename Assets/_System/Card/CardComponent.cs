@@ -29,9 +29,17 @@ public abstract class CardComponent : MonoBehaviour
     }
 
     ///<inheritdoc cref="CardSO.ApplyEffect"/>
-    public void ApplyEffect()
+    public void ApplyEffect(EntityComponent user)
     {
-        _cardSO.ApplyEffect();
+        /*_cardSO.ApplyEffect();*/
+
+        switch (_cardSO.Effect)
+        {
+            //case _cardSO.Effect is :
+            //user.IncrementCoins();
+            //break;
+        }
+
     }
 
     #endregion

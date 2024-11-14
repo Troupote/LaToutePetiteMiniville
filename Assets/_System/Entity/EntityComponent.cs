@@ -41,7 +41,8 @@ public abstract class EntityComponent : MonoBehaviour
     /// Roll the dice.
     /// </summary>
     /// <returns></returns>
-    public int RollDices() => Random.Range(1, 7);
+    public int RollDices() => Random.Range(1, 7); //@todo check usefull ?
+
 
     /// <summary>
     /// Buy a card and add it in hand.
@@ -58,6 +59,13 @@ public abstract class EntityComponent : MonoBehaviour
 
         return true;
     }
+
+    /// <summary>
+    /// Add an amount of coins to an entity.
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns>returns the new coins value.</returns>
+    public int IncrementCoins(int amount) => _coins += amount;
 
     #endregion
 

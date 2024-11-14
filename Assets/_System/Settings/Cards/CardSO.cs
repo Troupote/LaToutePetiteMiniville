@@ -36,6 +36,10 @@ public abstract class CardSO : ScriptableObject
     [SerializeField]
     private int _cost = 0;
 
+    [Tooltip("The card effect when activated.")]
+    [SerializeField]
+    private CardEffectSO _effect = null;
+
     #endregion
 
     #region Public API
@@ -57,6 +61,9 @@ public abstract class CardSO : ScriptableObject
 
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;
+
+    ///<inheritdoc cref="_effect"/>
+    public CardEffectSO Effect => _effect;
 
 
     /// <summary>
