@@ -43,7 +43,6 @@ public abstract class EntityComponent : MonoBehaviour
     /// <returns></returns>
     public int RollDices() => Random.Range(1, 7); //@todo check usefull ?
 
-
     /// <summary>
     /// Buy a card and add it in hand.
     /// </summary>
