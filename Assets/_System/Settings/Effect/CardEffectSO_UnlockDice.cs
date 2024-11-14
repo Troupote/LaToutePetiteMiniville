@@ -5,7 +5,6 @@ public class CardEffectSO_UnlockDice : CardEffectSO
 {
     public override void ApplyEffect(EntityComponent user, EntityComponent opp)
     {
-        //@todo Implement
         //user.UnlockDice();
     }
 }

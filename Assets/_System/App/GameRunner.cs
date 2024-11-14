@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour
@@ -25,6 +24,7 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private GameConfigSO _config = null;
 
+
     [Header("Players")]
 
     [SerializeField]
@@ -33,13 +33,16 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private AIComponent _ai = null;
 
-    //@todo Pile field 
+    [Header("Dice")]
+
+    [SerializeField]
+    private DiceComponent _dice = null;
+
 
     private Pile _piles = null;
 
-    private EntityComponent _currentPlayer=null;    
+    private EntityComponent _currentPlayer = null;
 
-    //@todo Dice
 
     /// <summary>
     /// The current game state.
@@ -63,16 +66,24 @@ public class GameRunner : MonoBehaviour
     {
         //Init piles
         _piles = new Pile(_config.CardsArchetypes, _config.StackSize);
+
+        foreach (var item in _piles.Piles.Keys)
+        {
+            Debug.Log("Cards" + item);
+        }
     }
 
     private void PlayerTurn()
     {
+        _currentGameState = GameState.PlayerTurn;
+        _currentPlayer = _player;
+
         // Roll Dice
         int dicesValue = 0;
-        for (int i = 0; i < _config.NbDices; i++)
-        {
-            //dicesValue += _dice.Roll(_config.NbDices);
-        }
+        //for (int i = 0; i < _player.NbDice; i++)
+        //{
+        //    dicesValue += _dice.Roll(_config.NbDices);
+        //}
 
         //Player Effects
         foreach (CardComponent card in _player.Cards)
@@ -99,22 +110,25 @@ public class GameRunner : MonoBehaviour
     }
 
     public bool BuyCard(CardSO card)
-    { 
-       if((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
-       return false;
+    {
+        if ((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
+            return false;
 
-       if(! _piles.DrawCard(card))
-       return false;
+        if (!_piles.DrawCard(card))
+            return false;
 
-       return _currentPlayer.BuyCard(card);
+        return _currentPlayer.BuyCard(card);
     }
 
-    //private void AITurn()
-    //{
-    //    // Roll Dice
-    //    // Effects
-    //    // Purchase Card/Building
-    //}
+    private void AITurn()
+    {
+        _currentGameState = GameState.PlayerTurn;
+        _currentPlayer = _ai;   
+
+        // Roll Dice
+        // Effects
+        // Purchase Card/Building
+    }
 
 
     #endregion
