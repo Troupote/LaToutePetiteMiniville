@@ -1,4 +1,3 @@
-using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -38,6 +37,7 @@ public class GameRunner : MonoBehaviour
     [Header("Dice")]
 
     [SerializeField]
+    private DiceComponent _dice = null;
 
     [Header("Music")]
 
@@ -46,7 +46,7 @@ public class GameRunner : MonoBehaviour
 
     [Tooltip("Doit �tre entre 0 et 1, et d�fini avant de run")]
     [SerializeField]
-    [Range(0,1)]
+    [Range(0, 1)]
     private float Volume = 0.6f;
 
     //@todo Pile field 
@@ -132,13 +132,12 @@ public class GameRunner : MonoBehaviour
     private void AITurn()
     {
         _currentGameState = GameState.PlayerTurn;
-        _currentPlayer = _ai;   
+        _currentPlayer = _ai;
 
         // Roll Dice
         // Effects
         // Purchase Card/Building
     }
-
 
     #endregion
 }
