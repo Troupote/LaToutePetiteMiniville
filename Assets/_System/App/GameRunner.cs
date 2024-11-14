@@ -59,7 +59,7 @@ public class GameRunner : MonoBehaviour
     private void Init()
     {
         //Init piles
-        _piles = new(_config.CardsArchetypes, _config.StackSize);
+        _piles = new Pile(_config.CardsArchetypes, _config.StackSize);
     }
 
     private void PlayerTurn()
