@@ -1,3 +1,5 @@
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour
@@ -36,8 +38,18 @@ public class GameRunner : MonoBehaviour
     [Header("Dice")]
 
     [SerializeField]
-    private DiceComponent _dice = null;
 
+    [Header("Music")]
+
+    [SerializeField]
+    private AudioSource GameMusic;
+
+    [Tooltip("Doit �tre entre 0 et 1, et d�fini avant de run")]
+    [SerializeField]
+    [Range(0,1)]
+    private float Volume = 0.6f;
+
+    //@todo Pile field 
 
     private Pile _piles = null;
 
@@ -66,11 +78,8 @@ public class GameRunner : MonoBehaviour
     {
         //Init piles
         _piles = new Pile(_config.CardsArchetypes, _config.StackSize);
-
-        foreach (var item in _piles.Piles.Keys)
-        {
-            Debug.Log("Cards" + item);
-        }
+        GameMusic.Play();
+        GameMusic.DOFade(Volume, 1);
     }
 
     private void PlayerTurn()
