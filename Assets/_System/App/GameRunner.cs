@@ -39,7 +39,7 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private AudioSource GameMusic;
 
-    [Tooltip("Doit �tre entre 0 et 1, et d�fini avant de run")]
+    [Tooltip("Doit etre entre 0 et 1, et defini avant de run")]
     [SerializeField]
     [Range(0,1)]
     private float Volume = 0.6f;
