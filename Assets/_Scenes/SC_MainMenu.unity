@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuMusic: {fileID: 361536908}
-  MenuVolume: 0.216
+  MenuVolume: 0.068
   ButtonSound: {fileID: 1525986399}
 --- !u!4 &968267514
 Transform:
