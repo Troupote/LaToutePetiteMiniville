@@ -77,7 +77,7 @@ public class GameRunner : MonoBehaviour
             if (card.CardSO.ActivationNumber != dicesValue || (card.CardSO.ActivationType != CardActivationType.SelfTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
                 continue;
 
-            card.ApplyEffect(_player);
+            card.ApplyEffect(_player, _ai);
         }
 
         //Opponent Effect
@@ -86,7 +86,7 @@ public class GameRunner : MonoBehaviour
             if (card.CardSO.ActivationNumber != dicesValue || (card.CardSO.ActivationType != CardActivationType.OpponentTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
                 continue;
 
-            card.ApplyEffect(_ai);
+            card.ApplyEffect(_ai, _player);
         }
 
         // Purchase Card/Building
