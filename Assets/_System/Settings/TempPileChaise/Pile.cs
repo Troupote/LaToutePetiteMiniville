@@ -1,40 +1,68 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-[Serializable]
+/// <summary>
+/// Initialize and Manage piles.
+/// </summary>
 public class Pile
 {
-    private List<CardSO> _allTurnPile = new();
-    private List<CardSO> _opponentPile = new();
-    private List<CardSO> _selfPile = new();
-    private List<CardSO> _specialPile = new(); //@todo a voir plus tard si on fait ou pas
-   
-    public List<CardSO> AllTurnPile=> _allTurnPile;
-    public List<CardSO> OpponentPile => _opponentPile;
-    
-    public List<CardSO> SelfPile => _selfPile;
-    public List<CardSO> SpecialPile => _specialPile;
+    #region Fields
 
-    public Pile(List<CardSO> allTurnPile, List<CardSO> opponentPile, List<CardSO> selfPile, List<CardSO> specialPile)
+    /// <summary>
+    /// The type of card for a piles.
+    /// </summary>
+    private CardSO[] _cardArchetypes = null;
+
+    /// <summary>
+    /// The whole piles with drawable cards.
+    /// </summary>
+    Dictionary<CardSO, int> _piles = new Dictionary<CardSO, int>();
+
+    /// <summary>
+    /// The stack size of a initialized pile.
+    /// </summary>
+    private int _baseCardStackSize = 0;
+
+    #endregion
+
+    #region Lifecycle
+
+    /// <inheritdoc cref=" Pile"/>
+    /// <param name="archetypes"><inheritdoc cref="_cardArchetypes"/></param>
+    /// <param name="stackSize"><inheritdoc cref="_baseCardStackSize"/></param>
+    public Pile(CardSO[] archetypes, int stackSize)
     {
-        _allTurnPile = allTurnPile;
-        _opponentPile = opponentPile;
-        _selfPile = selfPile;
-        _specialPile = specialPile;
+        _cardArchetypes = archetypes;
+        _baseCardStackSize = stackSize;
+
+        InitPiles();
     }
 
-    public List<CardSO> PileSort(List<CardSO> list, CardActivationType type)
+    #endregion
+
+    #region Public API
+
+    ///<inheritdoc cref="_piles"/>
+    public Dictionary<CardSO, int> Piles => _piles;
+
+    private void InitPiles()
     {
-        List<CardSO> sortedList = new();
-        foreach(CardSO card in list)
+        foreach (CardSO archetype in _cardArchetypes)
         {
+            if (_piles.ContainsKey(archetype))
+                continue;
 
-            if (card.ActivationType == type)
-            {
-               sortedList.Add(card);
-            }
+            _piles.Add(archetype, _baseCardStackSize);
         }
-        return sortedList;
     }
+
+    private bool DrawCard(CardSO card)
+    {
+        if (_piles[card] <= 0)
+            return false;
+
+        _piles[card]--;
+        return true;
+    }
+
+    #endregion
 }
