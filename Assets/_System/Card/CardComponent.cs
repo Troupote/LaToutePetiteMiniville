@@ -1,4 +1,7 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using static GameRunner;
 
 /// <summary>
 /// The base class representing a card in runtime.
@@ -31,20 +34,7 @@ public abstract class CardComponent : MonoBehaviour
     ///Apply the card effect.
     public void ApplyEffect(EntityComponent user, EntityComponent opponent)
     {
-        switch (_cardSO.Effect)
-        {
-            case CardEffectSO_GainCoin:
-                CardEffectSO_GainCoin e = _cardSO.Effect as CardEffectSO_GainCoin;
-                user.IncrementCoins(e.GainCoinAmount);
-                break;
-
-            case CardEffectSO_UnlockDice:
-                break;
-
-            case CardEffect_Exchange:
-                break;
-        }
-
+        _cardSO.ApplyEffect(user, opponent);
     }
 
     #endregion
