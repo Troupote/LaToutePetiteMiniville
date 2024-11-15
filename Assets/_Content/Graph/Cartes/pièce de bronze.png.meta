@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "pi\xE8ce de bronze_0": -1754858090061349683
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

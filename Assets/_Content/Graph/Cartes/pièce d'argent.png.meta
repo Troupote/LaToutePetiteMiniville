@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "pi\xE8ce d'argent_0": -3895238401353180497
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
