@@ -28,6 +28,12 @@ public class GameRunner : MonoBehaviour
     private GameConfigSO _config = null;
 
 
+    [Header("Camera")]
+
+    [SerializeField]
+    private Camera _camera = null;
+
+
     [Header("Players")]
 
     [SerializeField]
@@ -39,12 +45,12 @@ public class GameRunner : MonoBehaviour
     [Header("Dice")]
 
     [SerializeField]
-    private DiceComponent _dice = null;
+    private DiceManagerScript _diceScript = null;
 
     [Header("Music")]
 
     [SerializeField]
-    private AudioSource GameMusic;
+    private AudioSource _gameMusic;
 
     [Tooltip("Doit etre entre 0 et 1, et defini avant de run")]
     [SerializeField]
@@ -71,8 +77,14 @@ public class GameRunner : MonoBehaviour
     void Start()
     {
         Init();
+
     }
 
+    private void Update()
+    {
+
+        PlayerTurn();
+    }
     #endregion
 
     #region Private API
@@ -81,8 +93,8 @@ public class GameRunner : MonoBehaviour
     {
         //Init piles
         _piles = new Pile(_config.CardsArchetypes, _config.StackSize);
-        GameMusic.Play();
-        GameMusic.DOFade(Volume, 1);
+        _gameMusic.Play();
+        _gameMusic.DOFade(Volume, 1);
     }
 
     private void PlayerTurn()
@@ -92,6 +104,22 @@ public class GameRunner : MonoBehaviour
 
         // Dice 
         int dicesValue = 0;
+        if (!_diceScript.diceLaunch) 
+        {
+            _diceScript.resultFinal = 0;
+            _diceScript.create_dice(2);
+            _camera.transform.position = new Vector3((float)(60.61),(float)(5), (float)(-31.6));
+            _camera.transform.rotation = new Quaternion(Mathf.Deg2Rad*58,0,0,1);
+        }
+        if (_diceScript.resultFinal != 0 && _diceScript.diceLaunch)
+        {
+            _diceScript.diceLaunch = false;
+            dicesValue = _diceScript.resultFinal; 
+            _camera.transform.position = new Vector3((float)(0), (float)(0), (float)(0));
+            _camera.transform.rotation = new Quaternion(0, 0, 0, 1);
+            Debug.Log(_diceScript.resultFinal);
+        }
+
         // Dice.Roll(_currentPlayer);
 
         Queue<CardEffectSO> effectsQueue = new Queue<CardEffectSO>();
