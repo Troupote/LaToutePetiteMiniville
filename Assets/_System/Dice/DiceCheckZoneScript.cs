@@ -3,16 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class NewEmptyCSharpScript : MonoBehaviour 
+public class DiceCheckZoneScript : MonoBehaviour 
 {
-    public Text diceText;
+
+    [SerializeField]
+    private DiceManagerScript _diceScript = null;
     public static int finalCount = 0;
-
-    void FixedUpdate()
-    {
-        diceText.text = finalCount.ToString();
-    }
-
     void OnTriggerStay(Collider col)
     {
         if (col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.x == 0f && col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.y == 0f && col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.z == 0f)
@@ -39,6 +35,8 @@ public class NewEmptyCSharpScript : MonoBehaviour
                     break;
             }
             Destroy(col.gameObject);
+            _diceScript.nbDiceRolling -= 1;
+
         }
     }
 }

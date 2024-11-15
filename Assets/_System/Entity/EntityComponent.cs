@@ -26,6 +26,8 @@ public abstract class EntityComponent : MonoBehaviour
     /// </summary>
     private List<CardComponent> _cards = new();
 
+    public int diceCount = 2;
+
     #endregion
 
     #region Public API
@@ -85,6 +87,17 @@ public abstract class EntityComponent : MonoBehaviour
     protected virtual void Init()
     {
         _coins = _config.Coins;
+    }
+    
+
+    public bool unlockDice()
+    {
+        if ( diceCount < 2)
+        {
+            diceCount++;
+            return true;
+        }
+        return false;
     }
 
     #endregion

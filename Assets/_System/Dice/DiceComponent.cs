@@ -25,7 +25,7 @@ public class DiceComponent : MonoBehaviour
         float dirX = Random.Range(0, 100);
         float dirY = Random.Range(0, 100);
         float dirZ = Random.Range(0, 100);
-        transform.position = new Vector3(Random.Range(-3, 3), Random.Range(2, 3), Random.Range(-3, 3));
+        transform.position = new Vector3(Random.Range(-3, 3)+60, Random.Range(2, 3)-9, Random.Range(-3, 3)-31);
         rb.AddForce(transform.up * 100);
         rb.AddTorque(dirX, dirY, dirZ);
         rb.linearVelocity = new Vector3(Random.Range(-3, 3), Random.Range(2, 3), Random.Range(-3, 3));
@@ -44,7 +44,6 @@ public class DiceComponent : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            Debug.Log(_mainMaterial.color.a);
         }
     }
     
