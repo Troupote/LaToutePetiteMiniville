@@ -47,7 +47,6 @@ public class DiceComponent : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            Debug.Log(_mainMaterial.color.a);
         }
     }
     
