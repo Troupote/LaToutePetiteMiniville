@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      boulangerie_0: -7508344412049235852
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
