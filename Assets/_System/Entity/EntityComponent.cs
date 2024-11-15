@@ -11,6 +11,8 @@ public abstract class EntityComponent : MonoBehaviour
     [SerializeField]
     private EntityConfigSO _config = null;
 
+    [SerializeField]
+    private SlotPlayerCard _toCreateAnObject;
     /// <summary>
     /// The entity debug name.
     /// </summary>
@@ -56,6 +58,7 @@ public abstract class EntityComponent : MonoBehaviour
 
         CardComponent card = cardSO.Build();
         _cards.Add(card);
+        _toCreateAnObject.AddCarteOnScene();
 
         return true;
     }
