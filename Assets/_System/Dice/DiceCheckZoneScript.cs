@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class DiceCheckZoneScript : MonoBehaviour 
 {
+
+    [SerializeField]
+    private DiceManagerScript _diceScript = null;
     public static int finalCount = 0;
     void OnTriggerStay(Collider col)
     {
@@ -32,7 +35,7 @@ public class DiceCheckZoneScript : MonoBehaviour
                     break;
             }
             Destroy(col.gameObject);
-            DiceManagerScript.nbDiceRolling -= 1;
+            _diceScript.nbDiceRolling -= 1;
 
         }
     }
