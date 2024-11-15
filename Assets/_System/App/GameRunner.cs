@@ -1,4 +1,6 @@
 using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour
@@ -56,6 +58,7 @@ public class GameRunner : MonoBehaviour
     private EntityComponent _currentPlayer = null;
 
 
+
     /// <summary>
     /// The current game state.
     /// </summary>
@@ -87,36 +90,81 @@ public class GameRunner : MonoBehaviour
         _currentGameState = GameState.PlayerTurn;
         _currentPlayer = _player;
 
-        // Roll Dice
+        // Dice 
         int dicesValue = 0;
-        //for (int i = 0; i < _player.NbDice; i++)
-        //{
-        //    dicesValue += _dice.Roll(_config.NbDices);
-        //}
+        // Dice.Roll(_currentPlayer);
 
-        //Player Effects
+        Queue<CardEffectSO> effectsQueue = new Queue<CardEffectSO>();
+
+
+        // Process player effects
         foreach (CardComponent card in _player.Cards)
         {
-            if (card.CardSO.ActivationNumber != dicesValue || (card.CardSO.ActivationType != CardActivationType.SelfTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
+            if (card.CardSO.ActivationNumber != dicesValue ||
+                (card.CardSO.ActivationType != CardActivationType.SelfTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
                 continue;
 
-            card.ApplyEffect(_player, _ai);
+            effectsQueue.Enqueue(card.CardSO.Effect);
         }
 
-        //Opponent Effect
+        //Entry point to apply effect
+        //ApplyNextEffect(_currentPlayer, _ai, ApplyNextEffect);
+
+        // Process opponent effects
         foreach (CardComponent card in _ai.Cards)
         {
-            if (card.CardSO.ActivationNumber != dicesValue || (card.CardSO.ActivationType != CardActivationType.OpponentTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
+            if (card.CardSO.ActivationNumber != dicesValue ||
+                (card.CardSO.ActivationType != CardActivationType.OpponentTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
                 continue;
 
             card.ApplyEffect(_ai, _player);
         }
-
-        // Purchase Card/Building
-        // foreach cards in pioche > card.Buy() -> will Build a card
-
-        // Check win condition
     }
+
+    private void AITurn()
+    {
+        _currentGameState = GameState.AITurn;
+        _currentPlayer = _ai;
+
+        // Roll Dice
+        // Effects
+        // Purchase Card/Building
+    }
+
+    private void ApplyNextEffect(Queue<CardEffectSO> effectsQueue, EntityComponent user, EntityComponent opponent, Action onDone)
+    {
+        if (effectsQueue.Count <= 0)
+        {
+            //Check if current is player
+            EndPlayerTurn();
+
+            onDone.Invoke();
+            return;
+        }
+
+        CardEffectSO effect = effectsQueue.Dequeue();
+        effect.ApplyEffect(user, opponent);
+        //ApplyNextEffect(effectsQueue, user, opponent, ApplyNextEffect);
+    }
+
+    /// <summary>
+    /// End effect callabck called to process the next effect.
+    /// </summary>
+    private void OnEffectDone()
+    {
+        EndPlayerTurn();
+    }
+
+    private void EndPlayerTurn()
+    {
+        Debug.Log("End player turn");
+        _currentGameState = GameState.AITurn;
+        AITurn();
+    }
+
+    #endregion
+
+    #region Public API
 
     public bool BuyCard(CardSO card)
     {
@@ -129,15 +177,6 @@ public class GameRunner : MonoBehaviour
         return _currentPlayer.BuyCard(card);
     }
 
-    private void AITurn()
-    {
-        _currentGameState = GameState.PlayerTurn;
-        _currentPlayer = _ai;
-
-        // Roll Dice
-        // Effects
-        // Purchase Card/Building
-    }
-
     #endregion
+
 }
