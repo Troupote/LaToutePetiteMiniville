@@ -13,7 +13,13 @@ public class MainMenuRunner : MonoBehaviour
     private float MenuVolume;
 
     [SerializeField]
-    private AudioSource ButtonSound;
+    private AudioSource PlayButtonSound;
+
+    [SerializeField]
+    private AudioSource QuitButtonSound;
+
+    [SerializeField]
+    private AudioSource CreditButtonSound;
     #endregion
 
     #region Public API
@@ -29,20 +35,20 @@ public class MainMenuRunner : MonoBehaviour
     {
         Debug.Log("Menu - Play");
         AppManager.Instance.Play();
-        ButtonSound.Play();
+        PlayButtonSound.Play();
         MenuMusic.DOFade(0, 1);
     }
     
     public void Credits()
     {
         AppManager.Instance.Credits();
-        ButtonSound.Play();
+        CreditButtonSound.Play();
     }
     
     public void Quit()
     {
         AppManager.Instance.Quit();
-        ButtonSound.Play();
+        QuitButtonSound.Play();
     }
 
     #endregion
