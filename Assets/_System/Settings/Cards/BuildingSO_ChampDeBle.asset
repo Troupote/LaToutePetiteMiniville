@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d266c56c59f40c498d600a8a62dd480, type: 3}
-  m_Name: BuildingSO_Truc2
+  m_Name: BuildingSO_ChampDeBle
   m_EditorClassIdentifier: 
-  _name: Ferme
-  _description: blc
-  _renderer: {fileID: 0}
+  _name: ChampDeBle
+  _description: 
+  _renderer: {fileID: 8689910722733084718, guid: fd0ba71b3df117f428fc770fd62e61af, type: 3}
   _prefab: {fileID: 0}
   _activationType: 0
-  _activationNumber: 4
-  _cost: 10
-  _isUnique: 0
+  _activationNumber: 1
+  _cost: 1
   _effect: {fileID: 11400000, guid: 4b9bb17211db7ea449106b7844889312, type: 2}
+  _isUnique: 0
