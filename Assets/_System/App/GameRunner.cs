@@ -100,13 +100,14 @@ public class GameRunner : MonoBehaviour
 
     public bool BuyCard(CardSO card)
     { 
-       if((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
-       return false;
+        
+        if((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
+        return false;
 
-       if(! _piles.DrawCard(card))
-       return false;
+        if(! _piles.DrawCard(card))
+        return false;
 
-       return _currentPlayer.BuyCard(card);
+        return _currentPlayer.BuyCard(card);
     }
 
     //private void AITurn()
