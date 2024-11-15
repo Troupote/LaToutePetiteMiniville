@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -87,9 +88,9 @@ public abstract class CardSO : ScriptableObject
     /// <summary>
     /// Apply the card effect.
     /// </summary>
-    public void ApplyEffect()
+    public void ApplyEffect(EntityComponent user, EntityComponent opponent)
     {
-        //@todo Card Effect
+        _effect.ApplyEffect(user, opponent);
     }
 
     #endregion
