@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GainCoin", menuName = "Game/Effect/Gain Coin", order = 0)]
