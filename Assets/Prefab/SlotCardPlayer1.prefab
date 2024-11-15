@@ -33,10 +33,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -804, y: -361}
-  m_SizeDelta: {x: -1804.7, y: -907.9442}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 180, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4455306283172398703
 CanvasRenderer:
@@ -89,3 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _printerPrefab: {fileID: 4668859402375947693}
+  _positionOfCardBuy: {fileID: 8515821931464503793, guid: 688a6042f63a27943a9c5f5e4c07b8ec, type: 3}
+  _targetPosition: {fileID: 0}
+  _duration: 1
