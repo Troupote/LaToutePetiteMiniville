@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d266c56c59f40c498d600a8a62dd480, type: 3}
   m_Name: BuildingSO_Mine
   m_EditorClassIdentifier: 
-  _name: Ferme
+  _name: Mine
   _description: 
-  _renderer: {fileID: 0}
+  _renderer: {fileID: 8135663367076951168, guid: 4b61af49bd710604c9019896496ee51a, type: 3}
   _prefab: {fileID: 0}
   _activationType: 0
-  _activationNumber: 2
-  _cost: 1
+  _activationNumber: 9
+  _cost: 6
   _effect: {fileID: 11400000, guid: 4b9bb17211db7ea449106b7844889312, type: 2}
   _isUnique: 0

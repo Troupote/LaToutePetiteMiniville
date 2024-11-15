@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Ferme
   _description: 
-  _renderer: {fileID: 0}
+  _renderer: {fileID: -5478201103583437891, guid: 2e55ec5c9ee5503448c532eb622d735e, type: 3}
   _prefab: {fileID: 0}
   _activationType: 0
   _activationNumber: 2
