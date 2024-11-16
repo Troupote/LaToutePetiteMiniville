@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 215}
+  m_SizeDelta: {x: 120, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4455306283172398703
 CanvasRenderer:
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 8689910722733084718, guid: fd0ba71b3df117f428fc770fd62e61af, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -91,11 +91,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCardPrefab: {fileID: 8515821931464503793, guid: 95b7a568226786b43a629ad8e78efac9, type: 3}
   _aiCardPrefab: {fileID: 8515821931464503793, guid: 688a6042f63a27943a9c5f5e4c07b8ec, type: 3}
-  _positionOnBoard: {fileID: 3735303643884176174}
+  _positionOnBoard: {fileID: 0}
   _slideDuration: 1
-  _playerHands:
-  - {fileID: 1318386278771107257, guid: 95b7a568226786b43a629ad8e78efac9, type: 3}
-  _aiHand: {fileID: 1318386278771107257, guid: 688a6042f63a27943a9c5f5e4c07b8ec, type: 3}
+  _playerHands: {fileID: 0}
+  _aiHand: {fileID: 0}
 --- !u!114 &900496803381832958
 MonoBehaviour:
   m_ObjectHideFlags: 0

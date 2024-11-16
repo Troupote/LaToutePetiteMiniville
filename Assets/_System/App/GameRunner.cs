@@ -196,19 +196,4 @@ public class GameRunner : MonoBehaviour
 
     #endregion
 
-    #region Public API
-
-    public bool BuyCard(CardSO card)
-    {
-        if ((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
-            return false;
-
-        if (!_piles.DrawCard(card))
-            return false;
-
-        return _currentPlayer.BuyCard(card);
-    }
-
-    #endregion
-
 }
