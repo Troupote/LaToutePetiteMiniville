@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f332d4f9cdfae284fb4b3a74a5f00d29
+guid: e2b06cf64f220d94d973962870151c5f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8357006920057296148
-    second: MiniVilleMenu_0
+      213: -4969207563056476897
+    second: menu background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MiniVilleMenu_0
+      name: menu background_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 6686
-        height: 3291
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ceae088cb72f50c80800000000000000
-      internalID: -8357006920057296148
+      spriteID: f1d85d4ac04d90bb0800000000000000
+      internalID: -4969207563056476897
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MiniVilleMenu_0: -8357006920057296148
+      menu background_0: -4969207563056476897
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
