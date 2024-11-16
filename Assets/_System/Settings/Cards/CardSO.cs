@@ -19,7 +19,7 @@ public abstract class CardSO : ScriptableObject
 
     [Tooltip("The card renderer")]
     [SerializeField]
-    private Image _renderer = null;
+    private Sprite _renderer = null;
 
     [Tooltip("The card prefab")]
     [SerializeField]
@@ -52,7 +52,7 @@ public abstract class CardSO : ScriptableObject
     public string Description => _description;
 
     ///<inheritdoc cref="_renderer"/>
-    public Image Renderer => _renderer;
+    public Sprite Renderer => _renderer;
 
     ///<inheritdoc cref="_color"/>
     public CardActivationType ActivationType => _activationType;

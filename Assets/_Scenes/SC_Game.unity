@@ -839,7 +839,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1562,7 +1562,7 @@ MonoBehaviour:
   _ai: {fileID: 441438747}
   _diceScript: {fileID: 504229666}
   _gameMusic: {fileID: 1271627387}
-  Volume: 0.2
+  Volume: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
