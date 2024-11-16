@@ -71,9 +71,10 @@ public abstract class CardSO : ScriptableObject
     /// Build a card using this <see cref="CardSO"/>
     /// </summary>
     /// <returns>Returns the built <see cref="CardComponent"/>.</returns>
-    public CardComponent Build()
+    public CardComponent Build(Vector3 position,Quaternion rotation, Transform parent )
     {
-        GameObject cardObj = Instantiate(_prefab);
+
+        GameObject cardObj = Instantiate(_prefab,position,rotation,parent);
 
         if (!cardObj.TryGetComponent<CardComponent>(out CardComponent card))
         {

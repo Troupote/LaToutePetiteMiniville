@@ -33,6 +33,9 @@ public class SlotPlayerCard : MonoBehaviour
     [SerializeField]
     private ResizeSpaceCard _sizeCardPlayer;
 
+    [SerializeField]
+    private CardSO _cardSO;
+
     private RectTransform _currentTargetHand; // Position actuelle de la main cible
     private EntityComponent _currentEntityComponent; // Référence à l'entité (joueur ou IA)
 
@@ -64,28 +67,29 @@ public class SlotPlayerCard : MonoBehaviour
             _currentTargetHand = _aiHand;
         }
 
-        // Créer la carte à la position de départ
+       /* // Créer la carte à la position de départ
         GameObject createdObject = Instantiate(
             selectedPrefab,
             _positionOnBoard.position, // Position de départ sur le plateau
             Quaternion.identity,
             _positionOnBoard
         );
-
+       
         // Vérifier que le prefab a un RectTransform
         RectTransform createdCard = createdObject.GetComponent<RectTransform>();
 
         // Position initiale de la carte
         createdCard.position = _positionOnBoard.position;
-
+       */
         // Animer la carte vers la main cible
         //createdCard.DOMove(_currentTargetHand.position, _slideDuration).SetEase(Ease.InOutQuad);
 
         // Ajouter la carte à la main du joueur
+
         if (isPlayer)
         {
-            Destroy( createdObject );
-            GameObject cardObject = Instantiate(_playerCardPrefab, _currentTargetHand.position, Quaternion.identity, _playerHands);
+            //Destroy( createdObject );
+            _cardSO.Build(_currentTargetHand.position, Quaternion.identity, _playerHands);
 
             _sizeCardPlayer.Resize();
 
@@ -94,13 +98,15 @@ public class SlotPlayerCard : MonoBehaviour
         }
         else
         {
-            Destroy(createdObject);
+            //Destroy(createdObject);
             // Pour l'IA, on instancie une carte de manière similaire
-            GameObject cardObject = Instantiate(_aiCardPrefab, _currentTargetHand.position, Quaternion.identity, _aiHand);
+            _cardSO.Build(_currentTargetHand.position, Quaternion.identity, _aiHand);
             _sizeCardIa.Resize();
 
 
         }
 
+        //faire un event
     }
 }
+//refaire avec build de cardso
