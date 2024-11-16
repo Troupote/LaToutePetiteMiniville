@@ -7,6 +7,7 @@ public class SlotPlayerCard : MonoBehaviour
     [Header("Prefabs de cartes")]
     [SerializeField]
     private GameObject _playerCardPrefab; // Prefab pour les cartes du joueur
+
     [SerializeField]
     private GameObject _aiCardPrefab;    // Prefab pour les cartes de l'IA
 
@@ -21,8 +22,16 @@ public class SlotPlayerCard : MonoBehaviour
     [Header("Mains des joueurs")]
     [SerializeField]
     private RectTransform _playerHands; // Tableau des positions des mains des joueurs
+
+    [Header("Mains de l'ia")]
     [SerializeField]
     private RectTransform _aiHand;       // Position de la main de l'IA
+
+    [SerializeField]
+    private ResizeSpaceCard _sizeCardIa;
+    
+    [SerializeField]
+    private ResizeSpaceCard _sizeCardPlayer;
 
     private RectTransform _currentTargetHand; // Position actuelle de la main cible
     private EntityComponent _currentEntityComponent; // Référence à l'entité (joueur ou IA)
@@ -47,16 +56,7 @@ public class SlotPlayerCard : MonoBehaviour
         // Si c'est un joueur, vérifier la taille de sa main
         if (isPlayer)
         {
-            // Vérifier si la main du joueur n'a pas déjà 2 cartes
-            if (_currentEntityComponent.Cards.Count >= 2)
-            {
-                Debug.Log("La main du joueur est déjà pleine avec 2 cartes.");
-                return; // La main est pleine, ne pas ajouter de carte
-            }
-
-            // Déterminer la main cible du joueur
-            // Comme on ne gère pas l'index du joueur ici, on récupère simplement la première main disponible
-            _currentTargetHand = _playerHands; // Choisir la première main du tableau (_playerHands[0] par exemple)
+            _currentTargetHand = _playerHands; 
         }
         else
         {
@@ -85,14 +85,22 @@ public class SlotPlayerCard : MonoBehaviour
         if (isPlayer)
         {
             Destroy( createdObject );
-            // Créer un GameObject pour la carte à ajouter à la main du joueur
             GameObject cardObject = Instantiate(_playerCardPrefab, _currentTargetHand.position, Quaternion.identity, _playerHands);
+
+            _sizeCardPlayer.Resize();
+
+
+
         }
         else
         {
             Destroy(createdObject);
             // Pour l'IA, on instancie une carte de manière similaire
-            GameObject cardObject = Instantiate(_aiCardPrefab, _currentTargetHand.position, Quaternion.identity,_aiHand );
+            GameObject cardObject = Instantiate(_aiCardPrefab, _currentTargetHand.position, Quaternion.identity, _aiHand);
+            _sizeCardIa.Resize();
+
+
         }
+
     }
 }
