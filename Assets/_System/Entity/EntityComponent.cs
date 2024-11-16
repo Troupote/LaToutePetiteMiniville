@@ -59,8 +59,8 @@ public abstract class EntityComponent : MonoBehaviour
 
         _coins -= cardSO.Cost;
 
-        CardComponent card = cardSO.Build();
-        _cards.Add(card);
+        //CardComponent card = cardSO.Build();
+        //_cards.Add(card);
         _toCreateAnObject.AddCarteOnScene();
 
         return true;
