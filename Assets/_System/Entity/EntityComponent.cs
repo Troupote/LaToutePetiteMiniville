@@ -28,6 +28,8 @@ public abstract class EntityComponent : MonoBehaviour
     /// </summary>
     private List<CardComponent> _cards = new();
 
+    public int diceCount = 2;
+
     #endregion
 
     #region Public API
@@ -45,7 +47,6 @@ public abstract class EntityComponent : MonoBehaviour
     /// <returns></returns>
     public int RollDices() => Random.Range(1, 7); //@todo check usefull ?
 
-
     /// <summary>
     /// Buy a card and add it in hand.
     /// </summary>
@@ -55,6 +56,8 @@ public abstract class EntityComponent : MonoBehaviour
     {
         if (_coins < cardSO.Cost)
             return false;
+
+        _coins -= cardSO.Cost;
 
         CardComponent card = cardSO.Build();
         _cards.Add(card);
@@ -70,6 +73,13 @@ public abstract class EntityComponent : MonoBehaviour
     /// <returns>returns the new coins value.</returns>
     public int IncrementCoins(int amount) => _coins += amount;
 
+    public bool Exchange(EntityComponent opp)
+    {
+        Debug.Log("Exchange");
+
+        return true;
+    }
+
     #endregion
 
     #region Private API
@@ -80,6 +90,17 @@ public abstract class EntityComponent : MonoBehaviour
     protected virtual void Init()
     {
         _coins = _config.Coins;
+    }
+    
+
+    public bool unlockDice()
+    {
+        if ( diceCount < 2)
+        {
+            diceCount++;
+            return true;
+        }
+        return false;
     }
 
     #endregion
