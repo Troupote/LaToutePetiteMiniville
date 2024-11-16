@@ -88,7 +88,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 495f05fa8bd88b34bb7abfc25e07fef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _printerPrefab: {fileID: 4668859402375947693}
-  _positionOfCardBuy: {fileID: 8515821931464503793, guid: 688a6042f63a27943a9c5f5e4c07b8ec, type: 3}
-  _targetPosition: {fileID: 0}
-  _duration: 1
+  _playerCardPrefab: {fileID: 8515821931464503793, guid: 95b7a568226786b43a629ad8e78efac9, type: 3}
+  _aiCardPrefab: {fileID: 8515821931464503793, guid: 688a6042f63a27943a9c5f5e4c07b8ec, type: 3}
+  _positionOnBoard: {fileID: 3735303643884176174}
+  _slideDuration: 1
+  _playerHands:
+  - {fileID: 1318386278771107257, guid: 95b7a568226786b43a629ad8e78efac9, type: 3}
+  _aiHand: {fileID: 1318386278771107257, guid: 688a6042f63a27943a9c5f5e4c07b8ec, type: 3}
