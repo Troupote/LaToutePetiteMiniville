@@ -20,6 +20,7 @@ public class SlotPlayerCard : MonoBehaviour
     [Header("Mains des joueurs")]
     [SerializeField]
     private RectTransform[] _playerHands; // Tableau des positions des mains des joueurs
+
     [SerializeField]
     private RectTransform _aiHand;       // Position de la main de l'IA
 
@@ -47,7 +48,7 @@ public class SlotPlayerCard : MonoBehaviour
         if (isPlayer)
         {
             // Pour un joueur, la carte va dans la main du joueur
-            _currentTargetHand = _playerHands[0]; // On suppose ici qu'il n'y a qu'un seul joueur, sinon tu peux lier avec le GameRunner pour obtenir la main du joueur actuel
+            _currentTargetHand = _playerHands[0];
         }
         else
         {

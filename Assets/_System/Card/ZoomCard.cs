@@ -27,4 +27,3 @@ public class ZoomCard : MonoBehaviour
 
     }
 }
-//grace au raycast target on est good niveau collision :)
