@@ -17,9 +17,11 @@ public class CardEffectSO_GainCoin : CardEffectSO
     ///<inheritdoc cref="_gainCoinAmount"/>
     public int GainCoinAmount => _gainCoinAmount; 
 
-    public override void ApplyEffect(EntityComponent user, EntityComponent opp)
+    public override void ApplyEffect(EntityComponent user, EntityComponent opp, Action onDone)
     {
         user.IncrementCoins(GainCoinAmount);
+
+        onDone.Invoke();
     }
 
     #endregion
