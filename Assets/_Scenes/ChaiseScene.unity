@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 8689910722733084718, guid: b5060069948b7a146a15ff6dfe995b9e, type: 3}
+    - target: {fileID: 3387233222086494426, guid: 7221cd24c9e48d444828e65c2d271dcb, type: 3}
+      propertyPath: _positionOnBoard
+      value: 
+      objectReference: {fileID: 219464187}
     - target: {fileID: 3735303643884176174, guid: 7221cd24c9e48d444828e65c2d271dcb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

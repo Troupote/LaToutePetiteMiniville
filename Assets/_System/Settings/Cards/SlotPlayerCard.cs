@@ -7,15 +7,14 @@ public class SlotPlayerCard : MonoBehaviour
     private GameObject _printerPrefab;
 
     [SerializeField]
-    private GameObject _positionOfCardBuy;
+    private RectTransform _positionOnBoard;  
+
 
     [SerializeField]
-    private RectTransform _targetPosition;  // Position cible de l'objet
+    private RectTransform _playerHandPosition;  
 
     [SerializeField]
     private float _duration = 1.0f;      // Durée du déplacement
-
-    private MooveCurrentPositionCardHandPlayer _handPlayer;
 
     private EntityComponent _entityComponent;
 
@@ -33,13 +32,13 @@ public class SlotPlayerCard : MonoBehaviour
         if (_entityComponent is PlayerComponent)
             target.position = FindFirstObjectByType<PlayerDeckContainer>().transform.position;
 
-        Vector3 position = _positionOfCardBuy.transform.position;
-        GameObject CreatedObject = Instantiate(_printerPrefab, position, Quaternion.identity);
+        GameObject CreatedObject = Instantiate(_printerPrefab, _positionOnBoard.position, Quaternion.identity,_positionOnBoard.parent);
 
-        transform.DOMove(target.position, _duration);
+        // Récupérer le RectTransform de la carte
+        RectTransform CreatedCard = CreatedObject.GetComponent<RectTransform>();
+
+        CreatedCard.position = _positionOnBoard.position;
+
+        CreatedCard.DOMove(_playerHandPosition.position, _duration).SetEase(Ease.InOutQuad).onComplete();
     }
-
-
-
-    
 }
