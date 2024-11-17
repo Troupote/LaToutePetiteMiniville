@@ -3,8 +3,12 @@ using UnityEngine;
 public class DiceManager : MonoBehaviour
 {
     public GameObject diceObject;
+
+    [HideInInspector]
     public int nbDiceRolling = 0;
+    [HideInInspector]
     public int resultFinal = 0;
+    [HideInInspector]
     public bool diceLaunch = false;
     
     public void CreateDice(int nbDice)
