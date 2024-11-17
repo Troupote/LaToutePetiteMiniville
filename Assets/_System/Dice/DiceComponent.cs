@@ -36,6 +36,9 @@ public class DiceComponent : MonoBehaviour
     {
         if (rb.linearVelocity.x == 0f && rb.linearVelocity.y == 0f && rb.linearVelocity.z == 0f)
         {
+
+            Destroy(gameObject);
+            /*
             _mainMaterial.SetFloat("_SurfaceType", 3.0f);
             ratio = elapsedTime / _duration;
             elapsedTime += Time.deltaTime;
@@ -45,6 +48,7 @@ public class DiceComponent : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+            */
         }
     }
     
