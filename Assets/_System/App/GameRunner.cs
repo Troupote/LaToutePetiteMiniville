@@ -37,6 +37,10 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private DiceManager _diceManager = null;
 
+    [Header("Canvas")]
+    [SerializeField]
+    private Canvas _boardCanvas = null;
+
     [Header("Sound")]
     [SerializeField]
     private AudioSource _gameMusic;
@@ -81,6 +85,9 @@ public class GameRunner : MonoBehaviour
     /// </summary>
     private int _currentDiceRollValue = 0;
 
+    private CardSO _selectedCardToBuy = null;
+
+
     #endregion
 
     #region Lifecycle
@@ -89,6 +96,8 @@ public class GameRunner : MonoBehaviour
     {
         Init();
         PlayerTurn(); // Start with the player's turn as soon as game runner is created.
+
+        _boardCanvas.gameObject.SetActive(false);
     }
 
     #endregion
@@ -241,10 +250,30 @@ public class GameRunner : MonoBehaviour
     {
         Debug.Log($"Processing buy card...");
 
-        CardSO selectedCard = null;
+        bool canBuyAnyCard = false;
+        foreach (CardSO card in _piles.Piles.Keys)
+        {
+            if (card.Cost <= _currentPlayer.Coins)
+            {
+                canBuyAnyCard = true;
+                break;
+            }
+        }
+
+        if (!canBuyAnyCard)
+        {
+            Debug.LogWarning("No cards available for the player to purchase.");
+            ProcessNextStep();
+            yield break;
+        }
+
+        Debug.Log("Current player :" + _currentPlayer);
+
+        _boardCanvas.gameObject.SetActive(true);
 
         if (_currentPlayer is AIComponent)
         {
+            // Gestion pour l'IA
             List<CardSO> availableCards = _piles.GetAvailableCards();
 
             if (availableCards.Count == 0)
@@ -254,26 +283,50 @@ public class GameRunner : MonoBehaviour
                 yield break;
             }
 
-            selectedCard = availableCards[Random.Range(0, availableCards.Count)];
-            Debug.Log($"AI selected card: {selectedCard.name}");
+            _selectedCardToBuy = availableCards[Random.Range(0, availableCards.Count)];
+            Debug.Log($"AI selected card: {_selectedCardToBuy.name}");
+
+            if (TryBuyCard(_currentPlayer, _selectedCardToBuy))
+            {
+                _currentPlayer.BuyCard(_selectedCardToBuy);
+                Debug.Log($"AI successfully purchased card: {_selectedCardToBuy.name}");
+            }
+            else
+            {
+                Debug.LogError("AI failed to purchase card.");
+            }
         }
         else
         {
-            while (selectedCard == null)
-                yield return null;
+            // Gestion pour le joueur
+            Debug.Log($"Waiting for a card selection...");
+            while (true)
+            {
+                // Attendre que le joueur sélectionne une carte
+                yield return new WaitUntil(() => _selectedCardToBuy != null);
 
-            Debug.Log($"Player selected card: {selectedCard.name}");
+                Debug.Log($"Player selected card: {_selectedCardToBuy.name}");
+
+                // Tenter d'acheter la carte
+                if (TryBuyCard(_currentPlayer, _selectedCardToBuy))
+                {
+                    _currentPlayer.BuyCard(_selectedCardToBuy);
+                    Debug.Log($"Player successfully purchased card: {_selectedCardToBuy.name}");
+                    break; // Achat réussi, sortir de la boucle
+                }
+                else
+                {
+                    Debug.LogWarning("Purchase failed. Waiting for another selection...");
+                    _selectedCardToBuy = null; // Réinitialiser pour permettre une nouvelle sélection
+                }
+            }
         }
 
-        if (_piles.DrawCard(selectedCard) && _currentPlayer.BuyCard(selectedCard))
-        {
-            Debug.Log($"{_currentPlayer.GetType().Name} successfully purchased card: {selectedCard.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"{_currentPlayer.GetType().Name} failed to purchase the card.");
-        }
+        Debug.Log("COins !!!! : "+_currentPlayer.Coins.ToString());
 
+        // Fin de la phase d'achat
+        _selectedCardToBuy = null;
+        _boardCanvas.gameObject.SetActive(false);
         ProcessNextStep();
     }
 
@@ -312,4 +365,31 @@ public class GameRunner : MonoBehaviour
     }
 
     #endregion
+
+    public EntityComponent CurrentPlayer => _currentPlayer;
+    public GameConfigSO Config => _config;
+
+
+    public bool TryBuyCard(EntityComponent player, CardSO card)
+    {
+        Debug.Log($"Attempting to buy card: {card.Name} for player: {player.name}");
+
+        if (player.Coins < card.Cost)
+        {
+            Debug.LogError($"Not enough coins to buy the card: {card.Name}");
+            return false;
+        }
+
+        foreach (CardComponent cardComp in player.Cards)
+        {
+            if (cardComp == card && cardComp.CardSO is BuildingSO building && building.IsUnique)
+                return false;
+        }
+
+        _selectedCardToBuy = card;
+
+        Debug.Log($"{player.name} allowed to buy card: {card.Name}");
+        return true;
+
+    }
 }
