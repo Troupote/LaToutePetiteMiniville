@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// The base class representing an entity in runtime.
@@ -13,7 +15,8 @@ public abstract class EntityComponent : MonoBehaviour
     private EntityConfigSO _config = null;
 
     [SerializeField]
-    private SlotPlayerCard _toCreateAnObject;
+    private TMP_Text _coinText = null;
+
     /// <summary>
     /// The entity debug name.
     /// </summary>
@@ -55,7 +58,8 @@ public abstract class EntityComponent : MonoBehaviour
 
         _coins -= cardSO.Cost;
 
-        //CardComponent card = cardSO.Build();
+        _coinText.text = $"{_coins}";
+
 
         return true;
     }
@@ -66,6 +70,12 @@ public abstract class EntityComponent : MonoBehaviour
     /// <param name="amount"></param>
     /// <returns>returns the new coins value.</returns>
     public int IncrementCoins(int amount)
+    {
+        int value = _coins + amount;
+        _coinText.text = $"{value}";
+
+        return value;
+    }
 
     public bool Exchange(EntityComponent opp)
     {
@@ -84,18 +94,20 @@ public abstract class EntityComponent : MonoBehaviour
     protected virtual void Init()
     {
         _coins = _config.Coins;
+
+        _coinText.text = $"{_coins}";
     }
 
 
-    public bool unlockDice()
+    public bool UnlockDice()
     {
-        if (_diceCount < 2)
-        {
-            _diceCount++;
-            return true;
-        }
-        return false;
+        if (_diceCount >= 2)
+            return false;
+
+        _diceCount++;
+        return true;
     }
+
 
     #endregion
 }
