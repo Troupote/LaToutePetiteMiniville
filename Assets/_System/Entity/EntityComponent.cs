@@ -12,6 +12,8 @@ public abstract class EntityComponent : MonoBehaviour
     [SerializeField]
     private EntityConfigSO _config = null;
 
+    [SerializeField]
+    private SlotPlayerCard _toCreateAnObject;
     /// <summary>
     /// The entity debug name.
     /// </summary>
@@ -34,7 +36,6 @@ public abstract class EntityComponent : MonoBehaviour
     #region Public API
 
     public int DiceCount => Mathf.Max(1, _diceCount);
-
     ///<inheritdoc cref="_coins"/>
     public int Coins => Mathf.Max(0, _coins);
 
@@ -54,8 +55,7 @@ public abstract class EntityComponent : MonoBehaviour
 
         _coins -= cardSO.Cost;
 
-        CardComponent card = cardSO.Build();
-        _cards.Add(card);
+        //CardComponent card = cardSO.Build();
 
         return true;
     }
@@ -66,18 +66,6 @@ public abstract class EntityComponent : MonoBehaviour
     /// <param name="amount"></param>
     /// <returns>returns the new coins value.</returns>
     public int IncrementCoins(int amount)
-    {
-        //@todo test
-        StartCoroutine(tets());
-        Debug.Log("Coins" + _coins);
-
-        return _coins += amount;
-    }
-
-    private IEnumerator tets()
-    {
-        yield return new WaitForSeconds(4);
-    }
 
     public bool Exchange(EntityComponent opp)
     {

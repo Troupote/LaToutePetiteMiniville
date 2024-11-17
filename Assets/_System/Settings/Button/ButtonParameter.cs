@@ -1,23 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonParameter : MonoBehaviour
 {
-    public GameObject ScreenParameter;
+    [SerializeField]
+    private GameObject _screenParameter;
 
-    public ButtonParameter( GameObject screenParameter)
+    [SerializeField]
+    private Image _flou;
+
+    public void Pause()
     {
-        ScreenParameter = screenParameter;
+        _screenParameter.gameObject.SetActive(true);
+        _flou.gameObject.SetActive(true);
     }
 
-    public void ScreenVisibility()
-    {
-        if (ScreenParameter.gameObject.activeSelf != false)
-        {
-            ScreenParameter.gameObject.SetActive(false);
-        }
-        else 
-        { 
-            ScreenParameter.gameObject.SetActive(true);
-        }
-    }
 }

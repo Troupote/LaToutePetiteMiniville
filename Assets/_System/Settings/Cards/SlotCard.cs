@@ -22,3 +22,4 @@ public class SlotCard : MonoBehaviour
         }
     }
 }
+//refaire avec build de cardso
