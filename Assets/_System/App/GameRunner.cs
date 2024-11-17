@@ -135,15 +135,14 @@ public class GameRunner : MonoBehaviour
 
         _currentProcessIndex = 0;
 
-        // Start the first step automatically
         if (_processes.Count > 0)
             StartCoroutine(_processes[_currentProcessIndex]);
     }
 
     /// <summary>
-    /// Advances to the next step in the player's or AI's turn.
+    /// Advances to the next step in the current player process.
     /// </summary>
-    private void ProcessNextStep()
+    private void NextProcess()
     {
         if (_currentProcessIndex + 1 < _processes.Count)
         {
@@ -186,7 +185,7 @@ public class GameRunner : MonoBehaviour
         }
 
         Debug.Log("End Roll Dice");
-        ProcessNextStep();
+        NextProcess();
     }
 
     /// <summary>
@@ -209,16 +208,14 @@ public class GameRunner : MonoBehaviour
             }
         }
 
-
         Debug.LogWarning("player effcts to process count : " + playerEffectsQueue.Count);
 
         foreach (var card in playerEffectsQueue)
             Debug.LogWarning("Player effects activated: " + card);
 
-        yield return new WaitForSeconds(30);
-
 
         ApplyNextEffect(playerEffectsQueue, _currentPlayer, _currentOpponent);
+
 
         yield return new WaitUntil(() => playerEffectsQueue.Count == 0);
 
@@ -242,6 +239,9 @@ public class GameRunner : MonoBehaviour
         yield return new WaitUntil(() => opponentEffectsQueue.Count == 0);
 
         Debug.Log("End Process Effects");
+
+        Debug.Log("Next Step");
+        NextProcess();
         yield return null;
     }
 
@@ -259,7 +259,7 @@ public class GameRunner : MonoBehaviour
         if (!canBuy)
         {
             Debug.LogWarning("Aucune carte disponible à acheter.");
-            ProcessNextStep();
+            NextProcess();
             yield break;
         }
 
@@ -268,9 +268,11 @@ public class GameRunner : MonoBehaviour
 
         yield return _currentPlayer.ProcessBuyCard(_piles, _cardToBuy);
 
+        _cardToBuy = null;
         _boardCanvas.gameObject.SetActive(false);
 
-        ProcessNextStep();
+
+        NextProcess();
     }
 
 
@@ -315,10 +317,7 @@ public class GameRunner : MonoBehaviour
     private void ApplyNextEffect(Queue<CardEffectSO> effectsQueue, EntityComponent user, EntityComponent opponent)
     {
         if (effectsQueue.Count <= 0)
-        {
-            ProcessNextStep();
             return;
-        }
 
         CardEffectSO effect = effectsQueue.Dequeue();
         effect.ApplyEffect(user, opponent, () => ApplyNextEffect(effectsQueue, user, opponent));

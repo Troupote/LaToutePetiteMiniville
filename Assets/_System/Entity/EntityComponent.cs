@@ -65,18 +65,22 @@ public abstract class EntityComponent : MonoBehaviour
     #endregion
 
     #region Private API
+
     protected virtual void Init()
     {
         _coins = _config.Coins;
         _coinText.text = $"{_coins}";
 
-        Transform parent = this is AIComponent ? FindFirstObjectByType<AIHand>().transform : FindFirstObjectByType<AIHand>().transform;
+        Transform parent = this is AIComponent ? FindFirstObjectByType<AIHand>().transform : FindFirstObjectByType<PlayerHand>().transform;
 
         foreach (CardSO card in _config.InitialCards)
         {
             CardComponent c = card.Build(transform.position, Quaternion.identity, parent);
             _cards.Add(c);
         }
+
+        Debug.Log("Default cards : " + _cards.Count);
     }
+
     #endregion
 }
