@@ -89,9 +89,9 @@ public abstract class CardSO : ScriptableObject
     /// <summary>
     /// Apply the card effect.
     /// </summary>
-    public void ApplyEffect(EntityComponent user, EntityComponent opponent)
+    public void ApplyEffect(EntityComponent user, EntityComponent opponent, Action onDone)
     {
-        _effect.ApplyEffect(user, opponent);
+        _effect.ApplyEffect(user, opponent, onDone);
     }
 
     #endregion

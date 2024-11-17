@@ -432,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 050ee49a165b9ce4e987d6ea6711460c, type: 2}
   diceCount: 1
+  cardTest: {fileID: 11400000, guid: aab2d57402089c1479ae336da32e9f26, type: 2}
 --- !u!1 &706166296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,12 +1558,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: d37b79e420efb154283afb1b23c1662c, type: 2}
-  _camera: {fileID: 1869431933}
   _player: {fileID: 513114066}
   _ai: {fileID: 441438747}
-  _diceScript: {fileID: 504229666}
+  _diceManager: {fileID: 504229666}
   _gameMusic: {fileID: 1271627387}
-  Volume: 0.5
+  _volume: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

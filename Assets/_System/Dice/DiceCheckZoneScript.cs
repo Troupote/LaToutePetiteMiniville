@@ -1,13 +1,14 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// @todo
+/// </summary>
 
 public class DiceCheckZoneScript : MonoBehaviour 
 {
 
     [SerializeField]
-    private DiceManagerScript _diceScript = null;
+    private DiceManager _diceScript = null;
     public static int finalCount = 0;
     void OnTriggerStay(Collider col)
     {
@@ -34,6 +35,7 @@ public class DiceCheckZoneScript : MonoBehaviour
                     finalCount += 1;
                     break;
             }
+
             Destroy(col.gameObject);
             _diceScript.nbDiceRolling -= 1;
 
