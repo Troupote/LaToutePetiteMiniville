@@ -7,7 +7,7 @@ public class DiceManagerScript : MonoBehaviour
     public int resultFinal = 0;
     public bool diceLaunch = false;
     
-    public void create_dice(int nbDice)
+    public void CreateDice(int nbDice)
     {
         diceLaunch = true;
         nbDiceRolling = nbDice;
