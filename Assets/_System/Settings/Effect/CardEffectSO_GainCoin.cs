@@ -20,7 +20,6 @@ public class CardEffectSO_GainCoin : CardEffectSO
     public override void ApplyEffect(EntityComponent user, EntityComponent opp, Action onDone)
     {
         user.IncrementCoins(GainCoinAmount);
-
         onDone.Invoke();
     }
 

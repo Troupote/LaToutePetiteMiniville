@@ -15,7 +15,7 @@ public class DiceComponent : MonoBehaviour
     [SerializeField]
     private float _duration;
 
-    private Coroutine _fadeDiceCoroutine = null;
+    //private Coroutine _fadeDiceCoroutine = null;
 
     private void Start()
     {

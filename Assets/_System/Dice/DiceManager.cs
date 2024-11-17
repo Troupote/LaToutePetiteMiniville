@@ -13,13 +13,15 @@ public class DiceManager : MonoBehaviour
         nbDiceRolling = nbDice;
         for (int i = 0; i < nbDice; i++)
         {
-            Debug.Log("Dice value");
             Instantiate(diceObject);
         }
     }
     public void Update()
     {
         if (diceLaunch && nbDiceRolling == 0)
+        {
             resultFinal = DiceCheckZoneScript.finalCount;
+            Debug.Log("Dice value : " + resultFinal);
+        }
     }
 }

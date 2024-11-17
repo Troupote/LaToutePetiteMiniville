@@ -19,7 +19,7 @@ public class SlotCard : MonoBehaviour
             if(card.CardSO == _card &&(_card is BuildingSO building && building.IsUnique))
              return;
             
-            gameRunner.BuyCard(_card);
+            gameRunner.TryBuyCard(_card);
 
         }
     }
