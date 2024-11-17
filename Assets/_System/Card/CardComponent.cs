@@ -32,9 +32,9 @@ public abstract class CardComponent : MonoBehaviour
     }
 
     ///Apply the card effect.
-    public void ApplyEffect(EntityComponent user, EntityComponent opponent)
+    public void ApplyEffect(EntityComponent user, EntityComponent opponent, Action onDone)
     {
-        _cardSO.ApplyEffect(user, opponent);
+        _cardSO.ApplyEffect(user, opponent, onDone);
     }
 
     #endregion
