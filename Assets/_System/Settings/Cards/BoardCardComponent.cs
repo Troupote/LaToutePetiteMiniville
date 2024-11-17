@@ -1,10 +1,10 @@
-using DG.Tweening;
-using Unity.VisualScripting;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BoardCardComponent : MonoBehaviour
 {
+    [SerializeField]
     private Button _cardButton = null;
 
     [SerializeField]
@@ -13,11 +13,10 @@ public class BoardCardComponent : MonoBehaviour
     private GameRunner _gameRunner = null;
     private CardSO _card = null;
     private Transform _targetHand = null;
-
+    private EntityComponent _currentPlayer = null;
 
     private void Start()
     {
-
         _gameRunner = FindFirstObjectByType<GameRunner>();
 
         if (_card == null)
@@ -36,18 +35,9 @@ public class BoardCardComponent : MonoBehaviour
     {
         if (_cardButton != null)
             _cardButton.onClick.RemoveListener(HandleCardSelected);
-    }
 
-    private void OnMouseOver()
-    {
-        Debug.Log("Hover");
-        transform.DOScale(2, 0.5f);
-    }
-
-    private void OnMouseExit()
-    {
-        Debug.Log("Mouse Exit");
-        transform.DOScale(1f, 0.5f);
+        if (_currentPlayer != null)
+            _currentPlayer.OnBuyCard.RemoveListener(HandleBuyCard);
     }
 
     public void SetBoardCard(BuildingSO card)
@@ -65,19 +55,35 @@ public class BoardCardComponent : MonoBehaviour
             return;
         }
 
-        EntityComponent currentPlayer = _gameRunner.CurrentPlayer;
+        _currentPlayer = _gameRunner.CurrentPlayer;
+        _currentPlayer.OnBuyCard.AddListener(HandleBuyCard);
+        _gameRunner.SelectCardToBuy(_currentPlayer, _card);
+    }
 
-        _targetHand = currentPlayer is PlayerComponent ? FindFirstObjectByType<PlayerHand>().transform : FindFirstObjectByType<AIHand>().transform;
+    private void HandleBuyCard(EntityComponent player, CardSO card)
+    {
+        Debug.Log("BUY !");
+
+        _targetHand = _currentPlayer is PlayerComponent ? FindFirstObjectByType<PlayerHand>().transform : FindFirstObjectByType<AIHand>().transform;
         Debug.LogWarning("Container :." + _targetHand.name);
 
-        if (_card == null || currentPlayer == null)
-            return;
+        // Build the CardComponent using the CardSO and add it to the player's hand
+        CardComponent newCard = card.Build(transform.position, Quaternion.identity, _targetHand);
 
-        if (_gameRunner.TryBuyCard(currentPlayer, _card))
+        // Add the new card to the player's hand
+        PlayerComponent playerComponent = _currentPlayer as PlayerComponent;
+        if (playerComponent != null)
         {
-            _card.Build(transform.position, Quaternion.identity, _targetHand);
-            var container = _targetHand.GetComponent<ResizeCardContainerComponent>();
+            playerComponent.Cards.Add(newCard);
+        }
+
+        // Update the card container to reflect the new card
+        ResizeCardContainerComponent container = _targetHand.GetComponent<ResizeCardContainerComponent>();
+        if (container != null)
+        {
             container.Resize();
         }
+
+        // Optionally, update any UI elements or animations here
     }
 }

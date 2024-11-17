@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameRunner : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class GameRunner : MonoBehaviour
     /// </summary>
     private int _currentDiceRollValue = 0;
 
-    private CardSO _selectedCardToBuy = null;
+    private CardSO _cardToBuy = null;
 
 
     #endregion
@@ -94,10 +95,11 @@ public class GameRunner : MonoBehaviour
 
     void Start()
     {
-        Init();
-        PlayerTurn(); // Start with the player's turn as soon as game runner is created.
-
         _boardCanvas.gameObject.SetActive(false);
+
+        Init();
+        StartTurn(_player, _ai);
+
     }
 
     #endregion
@@ -115,39 +117,15 @@ public class GameRunner : MonoBehaviour
     }
 
     /// <summary>
-    /// Begins the player's turn.
+    /// Begins the turn for a given player
     /// </summary>
-    private void PlayerTurn()
+    private void StartTurn(EntityComponent currentPlayer, EntityComponent currentOpponent)
     {
-        _currentPlayer = _player;
-        _currentOpponent = _ai;
-        _currentGameState = GameState.PlayerTurn;
+        _currentPlayer = currentPlayer;
+        _currentOpponent = currentOpponent;
+        _currentGameState = currentPlayer is PlayerComponent ? GameState.PlayerTurn : GameState.AITurn;
 
-        Debug.Log("Enter Player Turn");
-
-        // Initialize turn steps
-        _processes.Clear();
-        _processes.Add(ProcessRollDice());
-        _processes.Add(ProcessEffects());
-        _processes.Add(ProcessBuyCard());
-
-        _currentProcessIndex = 0;
-
-        // Start the first step automatically
-        if (_processes.Count > 0)
-            StartCoroutine(_processes[_currentProcessIndex]);
-    }
-
-    /// <summary>
-    /// Begins the AI's turn.
-    /// </summary>
-    private void AITurn()
-    {
-        _currentPlayer = _ai;
-        _currentOpponent = _player;
-        _currentGameState = GameState.AITurn;
-
-        Debug.Log("Enter AI Turn");
+        Debug.Log($"{currentPlayer.name} Turn");
 
         // Initialize turn steps
         _processes.Clear();
@@ -217,28 +195,51 @@ public class GameRunner : MonoBehaviour
     private IEnumerator ProcessEffects()
     {
         Debug.Log("Processing Effects...");
+        Debug.LogWarning("Effects for dice roll: " + _currentDiceRollValue);
 
-        Queue<CardEffectSO> effectsQueue = new Queue<CardEffectSO>();
+        Queue<CardEffectSO> playerEffectsQueue = new Queue<CardEffectSO>();
 
-        // Process current player's card effects
         foreach (CardComponent card in _currentPlayer.Cards)
         {
-            if (card.CardSO.ActivationType == CardActivationType.SelfTurn || card.CardSO.ActivationType == CardActivationType.AllTurn)
+            if ((card.CardSO.ActivationType == CardActivationType.SelfTurn || card.CardSO.ActivationType == CardActivationType.AllTurn)
+                && card.CardSO.ActivationNumber == _currentDiceRollValue)
             {
-                effectsQueue.Enqueue(card.CardSO.Effect);
+                playerEffectsQueue.Enqueue(card.CardSO.Effect);
+                Debug.Log($"Enqueued effect of card {card.CardSO.Name} for current player.");
             }
         }
 
-        // Process opponent's card effects
+
+        Debug.LogWarning("player effcts to process count : " + playerEffectsQueue.Count);
+
+        foreach (var card in playerEffectsQueue)
+            Debug.LogWarning("Player effects activated: " + card);
+
+        yield return new WaitForSeconds(30);
+
+
+        ApplyNextEffect(playerEffectsQueue, _currentPlayer, _currentOpponent);
+
+        yield return new WaitUntil(() => playerEffectsQueue.Count == 0);
+
+        Queue<CardEffectSO> opponentEffectsQueue = new Queue<CardEffectSO>();
+
         foreach (CardComponent card in _currentOpponent.Cards)
         {
-            if (card.CardSO.ActivationType == CardActivationType.OpponentTurn || card.CardSO.ActivationType == CardActivationType.AllTurn)
+            if ((card.CardSO.ActivationType == CardActivationType.OpponentTurn || card.CardSO.ActivationType == CardActivationType.AllTurn)
+                && card.CardSO.ActivationNumber == _currentDiceRollValue)
             {
-                effectsQueue.Enqueue(card.CardSO.Effect);
+                opponentEffectsQueue.Enqueue(card.CardSO.Effect);
+                Debug.Log($"Enqueued effect of card {card.CardSO.Name} for opponent.");
             }
         }
 
-        ApplyNextEffect(effectsQueue, _currentPlayer, _currentOpponent);
+        Debug.LogWarning("opponent effcts to process count : " + opponentEffectsQueue.Count);
+
+
+        ApplyNextEffect(opponentEffectsQueue, _currentOpponent, _currentPlayer);
+
+        yield return new WaitUntil(() => opponentEffectsQueue.Count == 0);
 
         Debug.Log("End Process Effects");
         yield return null;
@@ -251,84 +252,42 @@ public class GameRunner : MonoBehaviour
     {
         Debug.Log($"Processing buy card...");
 
-        bool canBuyAnyCard = false;
-        foreach (CardSO card in _piles.Piles.Keys)
-        {
-            if (card.Cost <= _currentPlayer.Coins)
-            {
-                canBuyAnyCard = true;
-                break;
-            }
-        }
+        _boardCanvas.gameObject.SetActive(true);
 
-        if (!canBuyAnyCard)
+        bool canBuy = CanBuy();
+
+        if (!canBuy)
         {
-            Debug.LogWarning("No cards available for the player to purchase.");
+            Debug.LogWarning("Aucune carte disponible à acheter.");
             ProcessNextStep();
             yield break;
         }
 
-        Debug.Log("Current player :" + _currentPlayer);
+        while (_cardToBuy == null)
+            yield return null;
 
-        _boardCanvas.gameObject.SetActive(true);
+        yield return _currentPlayer.ProcessBuyCard(_piles, _cardToBuy);
 
-        if (_currentPlayer is AIComponent)
-        {
-            // Gestion pour l'IA
-            List<CardSO> availableCards = _piles.GetAvailableCards();
-
-            if (availableCards.Count == 0)
-            {
-                Debug.Log("No cards available for AI to purchase.");
-                ProcessNextStep();
-                yield break;
-            }
-
-            _selectedCardToBuy = availableCards[Random.Range(0, availableCards.Count)];
-            Debug.Log($"AI selected card: {_selectedCardToBuy.name}");
-
-            if (TryBuyCard(_currentPlayer, _selectedCardToBuy))
-            {
-                _currentPlayer.BuyCard(_selectedCardToBuy);
-                Debug.Log($"AI successfully purchased card: {_selectedCardToBuy.name}");
-            }
-            else
-            {
-                Debug.LogError("AI failed to purchase card.");
-            }
-        }
-        else
-        {
-            // Gestion pour le joueur
-            Debug.Log($"Waiting for a card selection...");
-            while (true)
-            {
-                // Attendre que le joueur sélectionne une carte
-                yield return new WaitUntil(() => _selectedCardToBuy != null);
-
-                Debug.Log($"Player selected card: {_selectedCardToBuy.name}");
-
-                // Tenter d'acheter la carte
-                if (TryBuyCard(_currentPlayer, _selectedCardToBuy))
-                {
-                    _currentPlayer.BuyCard(_selectedCardToBuy);
-                    Debug.Log($"Player successfully purchased card: {_selectedCardToBuy.name}");
-                    break; // Achat réussi, sortir de la boucle
-                }
-                else
-                {
-                    Debug.LogWarning("Purchase failed. Waiting for another selection...");
-                    _selectedCardToBuy = null; // Réinitialiser pour permettre une nouvelle sélection
-                }
-            }
-        }
-
-        Debug.Log("COins !!!! : "+_currentPlayer.Coins.ToString());
-
-        // Fin de la phase d'achat
-        _selectedCardToBuy = null;
         _boardCanvas.gameObject.SetActive(false);
+
         ProcessNextStep();
+    }
+
+
+    private bool CanBuy()
+    {
+        List<CardSO> availableCards = _piles.GetAvailableCards();
+
+        if (availableCards.Count <= 0)
+            return false;
+
+        foreach (CardSO card in availableCards)
+        {
+            if (card.Cost <= _currentPlayer.Coins)
+                return true;
+        }
+
+        return false;
     }
 
 
@@ -341,12 +300,12 @@ public class GameRunner : MonoBehaviour
         if (_currentPlayer is PlayerComponent)
         {
             Debug.Log("Player Turn Ended");
-            AITurn();
+            StartTurn(_ai, _player);  // Switch to AI's turn
         }
         else
         {
             Debug.Log("AI Turn Ended");
-            PlayerTurn();
+            StartTurn(_player, _ai);  // Switch back to Player's turn
         }
     }
 
@@ -371,26 +330,9 @@ public class GameRunner : MonoBehaviour
     public GameConfigSO Config => _config;
 
 
-    public bool TryBuyCard(EntityComponent player, CardSO card)
+    public void SelectCardToBuy(EntityComponent player, CardSO card)
     {
         Debug.Log($"Attempting to buy card: {card.Name} for player: {player.name}");
-
-        if (player.Coins < card.Cost)
-        {
-            Debug.LogError($"Not enough coins to buy the card: {card.Name}");
-            return false;
-        }
-
-        foreach (CardComponent cardComp in player.Cards)
-        {
-            if (cardComp == card && cardComp.CardSO is BuildingSO building && building.IsUnique)
-                return false;
-        }
-
-        _selectedCardToBuy = card;
-
-        Debug.Log($"{player.name} allowed to buy card: {card.Name}");
-        return true;
-
+        _cardToBuy = card;
     }
 }

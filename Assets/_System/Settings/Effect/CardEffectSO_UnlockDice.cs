@@ -6,7 +6,7 @@ public class CardEffectSO_UnlockDice : CardEffectSO
 {
     public override void ApplyEffect(EntityComponent user, EntityComponent opp, Action onDone)
     {
-        //user.UnlockDice();
+        user.UnlockDice();
         onDone.Invoke();
     }
 }
