@@ -57,10 +57,11 @@ public class Pile
 
     public bool DrawCard(CardSO card)
     {
-        if (_piles[card] <= 0)
-            return false;
+        //@todo check here
+        //if (_piles[card] <= 0)
+        //    return false;
 
-        _piles[card]--;
+        //_piles[card]--;
         return true;
     }
 
