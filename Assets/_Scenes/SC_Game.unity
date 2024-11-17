@@ -3567,8 +3567,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70acdddf08fab6c478e7964bb5cbf3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screenParameter: {fileID: 0}
-  _flou: {fileID: 0}
+  _screenParameter: {fileID: 1587596817}
+  _flou: {fileID: 1517297097}
 --- !u!114 &1587596823
 MonoBehaviour:
   m_ObjectHideFlags: 0
