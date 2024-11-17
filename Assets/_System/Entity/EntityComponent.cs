@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,7 +69,19 @@ public abstract class EntityComponent : MonoBehaviour
     /// </summary>
     /// <param name="amount"></param>
     /// <returns>returns the new coins value.</returns>
-    public int IncrementCoins(int amount) => _coins += amount;
+    public int IncrementCoins(int amount)
+    {
+        //@todo test
+        StartCoroutine(tets());
+        Debug.Log("Coins" + _coins);
+
+        return _coins += amount;
+    }
+
+    private IEnumerator tets()
+    {
+        yield return new WaitForSeconds(4);
+    }
 
     public bool Exchange(EntityComponent opp)
     {
@@ -88,11 +101,11 @@ public abstract class EntityComponent : MonoBehaviour
     {
         _coins = _config.Coins;
     }
-    
+
 
     public bool unlockDice()
     {
-        if ( diceCount < 2)
+        if (diceCount < 2)
         {
             diceCount++;
             return true;
