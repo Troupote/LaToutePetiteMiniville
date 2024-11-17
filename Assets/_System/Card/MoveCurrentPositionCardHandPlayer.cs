@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MooveCurrentPositionCardHandPlayer : MonoBehaviour
+public class MoveCurrentPositionCardHandPlayer : MonoBehaviour
 {
     private RectTransform _nextPosition;
     public void CurrentPosition()
