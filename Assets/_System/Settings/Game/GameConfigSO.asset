@@ -15,6 +15,18 @@ MonoBehaviour:
   _nbDices: 2
   _stackSize: 6
   _cardsArchetypes:
+  - {fileID: 11400000, guid: 6a90c545dae0c7b4189f5bacd936927b, type: 2}
+  - {fileID: 11400000, guid: fbfee20115e27c94b82252f36a666376, type: 2}
+  - {fileID: 11400000, guid: 4ac67c9cf14dad74dbfe37d3bb2c94ba, type: 2}
+  - {fileID: 11400000, guid: 5f885dd71bf7d1a48aaa647aeac8059b, type: 2}
+  - {fileID: 11400000, guid: 908c5b09a2c6134478e744616c10e748, type: 2}
+  - {fileID: 11400000, guid: 68b8952c656a62245a1d98119fe1cec6, type: 2}
   - {fileID: 11400000, guid: aab2d57402089c1479ae336da32e9f26, type: 2}
-  - {fileID: 11400000, guid: 9de97f6995611c94cb1068c59cd21c39, type: 2}
-  - {fileID: 11400000, guid: 7ee429f3745d2ff45aee412da21984a3, type: 2}
+  - {fileID: 11400000, guid: 05f2bdc9d5dfdfa44964d98dc701df59, type: 2}
+  - {fileID: 11400000, guid: 85f7ca0d308ce2144bdf7fc63b93f389, type: 2}
+  - {fileID: 11400000, guid: 7acea03d2b03937459e45edba03f682c, type: 2}
+  - {fileID: 11400000, guid: 655eadf9bd4e0ce41a6edbc44274293a, type: 2}
+  - {fileID: 11400000, guid: f21cf73dd30d12d4bb44d8222d7b6947, type: 2}
+  - {fileID: 11400000, guid: fc07ebbde5d1712469fa12ba4252cd29, type: 2}
+  - {fileID: 11400000, guid: dc29b9592b43fa54794ee66cdd884b78, type: 2}
+  - {fileID: 11400000, guid: aaebcc255d4fd1347a43abdc406590e3, type: 2}

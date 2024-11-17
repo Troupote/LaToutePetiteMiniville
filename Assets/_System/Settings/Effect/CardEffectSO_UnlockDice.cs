@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CardEffectSO_UnlockDice : CardEffectSO
 {
-    public override void ApplyEffect(EntityComponent user, EntityComponent opp)
+    public override void ApplyEffect(EntityComponent user, EntityComponent opp, Action onDone)
     {
         //user.UnlockDice();
+        onDone.Invoke();
     }
 }

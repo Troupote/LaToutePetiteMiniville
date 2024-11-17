@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// The base class representing an entity in runtime.
@@ -10,6 +13,9 @@ public abstract class EntityComponent : MonoBehaviour
 
     [SerializeField]
     private EntityConfigSO _config = null;
+
+    [SerializeField]
+    private TMP_Text _coinText = null;
 
     /// <summary>
     /// The entity debug name.
@@ -26,24 +32,19 @@ public abstract class EntityComponent : MonoBehaviour
     /// </summary>
     private List<CardComponent> _cards = new();
 
-    public int diceCount = 2;
+    private int _diceCount = 0;
 
     #endregion
 
     #region Public API
 
+    public int DiceCount => Mathf.Max(1, _diceCount);
     ///<inheritdoc cref="_coins"/>
     public int Coins => Mathf.Max(0, _coins);
 
     ///<inheritdoc cref="_cards"/>
     public List<CardComponent> Cards => _cards;
 
-
-    /// <summary>
-    /// Roll the dice.
-    /// </summary>
-    /// <returns></returns>
-    public int RollDices() => Random.Range(1, 7); //@todo check usefull ?
 
     /// <summary>
     /// Buy a card and add it in hand.
@@ -57,8 +58,8 @@ public abstract class EntityComponent : MonoBehaviour
 
         _coins -= cardSO.Cost;
 
-        CardComponent card = cardSO.Build();
-        _cards.Add(card);
+        _coinText.text = $"{_coins}";
+
 
         return true;
     }
@@ -68,7 +69,13 @@ public abstract class EntityComponent : MonoBehaviour
     /// </summary>
     /// <param name="amount"></param>
     /// <returns>returns the new coins value.</returns>
-    public int IncrementCoins(int amount) => _coins += amount;
+    public int IncrementCoins(int amount)
+    {
+        int value = _coins + amount;
+        _coinText.text = $"{value}";
+
+        return value;
+    }
 
     public bool Exchange(EntityComponent opp)
     {
@@ -87,18 +94,20 @@ public abstract class EntityComponent : MonoBehaviour
     protected virtual void Init()
     {
         _coins = _config.Coins;
-    }
-    
 
-    public bool unlockDice()
-    {
-        if ( diceCount < 2)
-        {
-            diceCount++;
-            return true;
-        }
-        return false;
+        _coinText.text = $"{_coins}";
     }
+
+
+    public bool UnlockDice()
+    {
+        if (_diceCount >= 2)
+            return false;
+
+        _diceCount++;
+        return true;
+    }
+
 
     #endregion
 }
