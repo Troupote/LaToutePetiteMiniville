@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: Mine
   _description: 
   _renderer: {fileID: 8135663367076951168, guid: 4b61af49bd710604c9019896496ee51a, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 0
   _activationNumber: 9
   _cost: 6

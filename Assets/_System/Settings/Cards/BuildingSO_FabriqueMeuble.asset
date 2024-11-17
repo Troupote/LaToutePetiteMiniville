@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: FabriqueMeuble
   _description: 
   _renderer: {fileID: -6968937223082023937, guid: 2b5efe5b51e35a543818222ed1a89497, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 1
   _activationNumber: 8
   _cost: 3
