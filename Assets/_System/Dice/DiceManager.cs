@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class DiceManagerScript : MonoBehaviour
+public class DiceManager : MonoBehaviour
 {
     public GameObject diceObject;
     public int nbDiceRolling = 0;
     public int resultFinal = 0;
     public bool diceLaunch = false;
     
-    public void create_dice(int nbDice)
+    public void CreateDice(int nbDice)
     {
         diceLaunch = true;
         nbDiceRolling = nbDice;
