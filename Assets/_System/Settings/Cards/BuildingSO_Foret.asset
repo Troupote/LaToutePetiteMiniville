@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: Foret
   _description: 
   _renderer: {fileID: 2920608914531314678, guid: 2eee9ceb9dba5c241a331df8f7c67757, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 0
   _activationNumber: 5
   _cost: 3

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BuildingSO_Ferme
   m_EditorClassIdentifier: 
   _name: Ferme
-  _description: 
+  _description: blc
   _renderer: {fileID: -5478201103583437891, guid: 2e55ec5c9ee5503448c532eb622d735e, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 0
-  _activationNumber: 2
-  _cost: 1
-  _effect: {fileID: 11400000, guid: 4b9bb17211db7ea449106b7844889312, type: 2}
+  _activationNumber: 4
+  _cost: 10
+  _effect: {fileID: 11400000, guid: 96f43eed09b377a45ab217696b49b8a1, type: 2}
   _isUnique: 0

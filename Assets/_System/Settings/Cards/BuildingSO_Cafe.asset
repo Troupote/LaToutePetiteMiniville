@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: Cafe
   _description: 
   _renderer: {fileID: 4884058345670421997, guid: 8cf741bfb0b98464f9d254764022503a, type: 3}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 2
   _activationNumber: 3
   _cost: 2

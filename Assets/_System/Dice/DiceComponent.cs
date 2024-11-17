@@ -15,7 +15,7 @@ public class DiceComponent : MonoBehaviour
     [SerializeField]
     private float _duration;
 
-    private Coroutine _fadeDiceCoroutine = null;
+    //private Coroutine _fadeDiceCoroutine = null;
 
     private void Start()
     {
@@ -25,10 +25,11 @@ public class DiceComponent : MonoBehaviour
         float dirX = Random.Range(0, 100);
         float dirY = Random.Range(0, 100);
         float dirZ = Random.Range(0, 100);
-        transform.position = new Vector3(Random.Range(-3, 3)+60, Random.Range(2, 3)-9, Random.Range(-3, 3)-31);
+        transform.position = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(2, 3)+23);
         rb.AddForce(transform.up * 100);
         rb.AddTorque(dirX, dirY, dirZ);
-        rb.linearVelocity = new Vector3(Random.Range(-3, 3), Random.Range(2, 3), Random.Range(-3, 3));
+        rb.linearVelocity = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(2, 3));
+        Physics.gravity = new Vector3 (0,0, 10);
     }
 
     private void FixedUpdate()
