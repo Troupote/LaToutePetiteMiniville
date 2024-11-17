@@ -38,7 +38,7 @@ public class GameRunner : MonoBehaviour
     [Header("Dice")]
 
     [SerializeField]
-    private DiceManager _diceManager = null;
+    private DiceManagerScript _diceManager = null;
 
     [Header("Sound")]
 
@@ -197,7 +197,7 @@ public class GameRunner : MonoBehaviour
         if (!_diceManager.diceLaunch)
         {
             _diceManager.resultFinal = 0;
-            _diceManager.CreateDice(2); // Create dice for rolling
+            _diceManager.create_dice(2); // Create dice for rolling
         }
 
         // Wait until the dice roll is complete

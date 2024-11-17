@@ -8,7 +8,7 @@ public class DiceCheckZoneScript : MonoBehaviour
 {
 
     [SerializeField]
-    private DiceManager _diceScript = null;
+    private DiceManagerScript _diceScript = null;
     public static int finalCount = 0;
     void OnTriggerStay(Collider col)
     {
