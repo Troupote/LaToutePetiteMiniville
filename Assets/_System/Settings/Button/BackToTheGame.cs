@@ -13,7 +13,5 @@ public class BackToTheGame : MonoBehaviour
     {
         _quitScreenParameter.gameObject.SetActive(false);
         _flou.gameObject.SetActive(false);
-
     }
-
 }

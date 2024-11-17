@@ -189,6 +189,7 @@ public class GameRunner : MonoBehaviour
         if (!_diceManager.diceLaunch)
         {
             _diceManager.resultFinal = 0;
+            _diceManager.diceLaunch = true;
             _diceManager.CreateDice(_currentPlayer.DiceCount);
         }
 

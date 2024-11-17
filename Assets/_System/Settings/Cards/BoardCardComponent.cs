@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class BoardCardComponent : MonoBehaviour
     private GameRunner _gameRunner = null;
     private CardSO _card = null;
     private Transform _targetHand = null;
+
 
     private void Start()
     {
@@ -74,6 +76,8 @@ public class BoardCardComponent : MonoBehaviour
         if (_gameRunner.TryBuyCard(currentPlayer, _card))
         {
             _card.Build(transform.position, Quaternion.identity, _targetHand);
+            var container = _targetHand.GetComponent<ResizeCardContainerComponent>();
+            container.Resize();
         }
     }
 }
