@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Parc_dattraction_dos_0: 8313814253476466763
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
