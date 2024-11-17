@@ -239,7 +239,7 @@ public class GameRunner : MonoBehaviour
     /// </summary>
     private IEnumerator ProcessBuyCard()
     {
-        Debug.Log($"{_currentPlayer.GetType().Name} is selecting a card to buy...");
+        Debug.Log($"Processing buy card...");
 
         CardSO selectedCard = null;
 
