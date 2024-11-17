@@ -27,11 +27,13 @@ public abstract class EntityComponent : MonoBehaviour
     /// </summary>
     private List<CardComponent> _cards = new();
 
-    public int diceCount = 2;
+    private int _diceCount = 0;
 
     #endregion
 
     #region Public API
+
+    public int DiceCount => Mathf.Max(1, _diceCount);
 
     ///<inheritdoc cref="_coins"/>
     public int Coins => Mathf.Max(0, _coins);
@@ -39,12 +41,6 @@ public abstract class EntityComponent : MonoBehaviour
     ///<inheritdoc cref="_cards"/>
     public List<CardComponent> Cards => _cards;
 
-
-    /// <summary>
-    /// Roll the dice.
-    /// </summary>
-    /// <returns></returns>
-    public int RollDices() => Random.Range(1, 7); //@todo check usefull ?
 
     /// <summary>
     /// Buy a card and add it in hand.
@@ -105,9 +101,9 @@ public abstract class EntityComponent : MonoBehaviour
 
     public bool unlockDice()
     {
-        if (diceCount < 2)
+        if (_diceCount < 2)
         {
-            diceCount++;
+            _diceCount++;
             return true;
         }
         return false;
