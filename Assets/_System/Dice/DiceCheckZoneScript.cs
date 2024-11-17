@@ -1,7 +1,8 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// @todo
+/// </summary>
 
 public class DiceCheckZoneScript : MonoBehaviour 
 {
@@ -34,6 +35,7 @@ public class DiceCheckZoneScript : MonoBehaviour
                     finalCount += 1;
                     break;
             }
+
             Destroy(col.gameObject);
             _diceScript.nbDiceRolling -= 1;
 

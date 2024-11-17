@@ -20,4 +20,11 @@ MonoBehaviour:
   _activationNumber: 4
   _cost: 10
   _effect: {fileID: 11400000, guid: 96f43eed09b377a45ab217696b49b8a1, type: 2}
+  _description: 
+  _renderer: {fileID: -5478201103583437891, guid: 2e55ec5c9ee5503448c532eb622d735e, type: 3}
+  _prefab: {fileID: 0}
+  _activationType: 0
+  _activationNumber: 2
+  _cost: 1
+  _effect: {fileID: 11400000, guid: 4b9bb17211db7ea449106b7844889312, type: 2}
   _isUnique: 0

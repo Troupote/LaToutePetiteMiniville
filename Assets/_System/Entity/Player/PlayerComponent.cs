@@ -13,5 +13,9 @@ public class PlayerComponent : EntityComponent
         base.Init();
 
         BuyCard(cardTest);
+
+        var c = cardTest.Build();
+
+        Cards.Add(c);
     }
 }

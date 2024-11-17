@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,13 +27,6 @@ public class GameRunner : MonoBehaviour
     [SerializeField]
     private GameConfigSO _config = null;
 
-
-    [Header("Camera")]
-
-    [SerializeField]
-    private Camera _camera = null;
-
-
     [Header("Players")]
 
     [SerializeField]
@@ -46,45 +38,50 @@ public class GameRunner : MonoBehaviour
     [Header("Dice")]
 
     [SerializeField]
-    private DiceManager _diceManager = null;
+    private DiceManagerScript _diceManager = null;
 
     [Header("Sound")]
 
     [SerializeField]
     private AudioSource _gameMusic;
 
-    [Tooltip("Doit etre entre 0 et 1, et defini avant de run")]
+    [Tooltip("Sound and music volume. Should be between 0 and 1, set before running")]
     [SerializeField]
     [Range(0, 1)]
     private float _volume = 0.6f;
 
-
     /// <summary>
-    /// 
+    /// The deck/pile used for drawing cards
     /// </summary>
     private Pile _piles = null;
 
     /// <summary>
-    /// 
+    /// The current player.
     /// </summary>
     private EntityComponent _currentPlayer = null;
 
     /// <summary>
-    /// 
+    /// The current opponent.
     /// </summary>
     private EntityComponent _currentOpponent = null;
 
     /// <summary>
-    /// The current game state.
+    /// Current game state
     /// </summary>
     private GameState _currentGameState;
 
-    private Coroutine _processRollDiceCoroutine = null;
-    private Coroutine _processEffectsCoroutine = null;
-    private Coroutine _processBuyCardCoroutine = null;
+    /// <summary>
+    /// Tracks the current step in the player's turn
+    /// </summary>
+    private int _currentProcessIndex = 0;
 
     /// <summary>
-    /// The amount of a roll for the current turn.
+    /// List of steps in the current player's turn
+    /// </summary>
+    private List<IEnumerator> _processes = new();
+
+    /// <summary>
+    /// Value of the dice roll in the current turn.
     /// </summary>
     private int _currentDiceRollValue = 0;
 
@@ -95,201 +92,217 @@ public class GameRunner : MonoBehaviour
     void Start()
     {
         Init();
-
-        PlayerTurn();
+        PlayerTurn(); // Start with the player's turn as soon as game runner is created.
     }
 
     #endregion
 
     #region Private API
 
+    /// <summary>
+    /// Initializes game resources, like piles and music.
+    /// </summary>
     private void Init()
     {
-        //Init piles
         _piles = new Pile(_config.CardsArchetypes, _config.StackSize);
         _gameMusic.Play();
-        _gameMusic.DOFade(_volume, 1);
+        _gameMusic.DOFade(_volume, 1); // Fade in game music
+
+
+        Debug.Log("Piles in pile" + _piles.Piles);
+
+        Debug.Log("Player cards : " + _player.Cards);
     }
 
-    private void PlayerTurn() => StartCoroutine(ProcessPlayerTurn());
-
-    private void AITurn() => StartCoroutine(ProcessAITurn());
-
-    private IEnumerator ProcessPlayerTurn()
+    /// <summary>
+    /// Begins the player's turn.
+    /// </summary>
+    private void PlayerTurn()
     {
         _currentPlayer = _player;
         _currentOpponent = _ai;
+        _currentGameState = GameState.PlayerTurn;
 
-        //yield return ProcessRollDice();
+        Debug.Log("Enter Player Turn");
 
-        Debug.Log("Enter Player turn");
+        // Initialize turn steps
+        _processes.Clear();
+        _processes.Add(ProcessRollDice());
+        _processes.Add(ProcessEffects());
+        _processes.Add(ProcessBuyCard());
 
-        Queue<IEnumerator> processes = new();
+        _currentProcessIndex = 0;
 
-        processes.Enqueue(ProcessRollDice());
-        processes.Enqueue(ProcessEffects());
-        processes.Enqueue(ProcessBuyCard());
-        Debug.Log("list created");
-
-
-
-        while (processes.Count > 0)
-        {
-            IEnumerator p = processes.Dequeue();
-
-            if (p == null)
-                continue;
-
-            Debug.Log("Proc");
-            yield return p;
-        }
-
-        //foreach (IEnumerator process in processes)
-        //    yield return process;
-
-        Debug.Log("End Player turn");
-
-        yield return null;
+        // Start the first step automatically
+        if (_processes.Count > 0)
+            StartCoroutine(_processes[_currentProcessIndex]);
     }
 
+    /// <summary>
+    /// Begins the AI's turn.
+    /// </summary>
+    private void AITurn() => StartCoroutine(ProcessAITurn());
+
+    /// <summary>
+    /// Advances to the next step in the player's turn.
+    /// </summary>
+    public void ProcessNextStep()
+    {
+        if ((_currentPlayer is PlayerComponent && _currentGameState != GameState.PlayerTurn) || (_currentPlayer is AIComponent && _currentGameState != GameState.AITurn))
+        {
+            Debug.LogWarning("WrOng turn turn !");
+            StopAllCoroutines();
+            return;
+        }
+
+        if (_currentProcessIndex + 1 < _processes.Count)
+        {
+            _currentProcessIndex++;
+            StartCoroutine(_processes[_currentProcessIndex]);
+        }
+        else
+        {
+            Debug.Log("End of player turn.");
+            EndTurn();
+        }
+    }
+
+    /// <summary>
+    /// Executes the AI's turn in one continuous flow.
+    /// </summary>
     private IEnumerator ProcessAITurn()
     {
         _currentPlayer = _ai;
         _currentOpponent = _player;
+        _currentGameState = GameState.AITurn;
 
+        Debug.Log("Enter AI Turn");
 
-        // Roll Dice
-        // Effects
-        // Purchase Card/Building
+        // Perform all steps automatically
+        yield return ProcessRollDice();
+        yield return ProcessEffects();
+        yield return ProcessBuyCard();
 
-        yield return null;
-
+        EndTurn();
     }
 
+    /// <summary>
+    /// Handles the dice roll phase.
+    /// </summary>
     private IEnumerator ProcessRollDice()
     {
-        yield return new WaitForSeconds(1);
-        Debug.Log("Enter dice process");
-
-
-        while (_processRollDiceCoroutine != null)
-            yield return null;
+        Debug.Log("Rolling Dice...");
+        //yield return new WaitForSeconds(1); // Simulate dice rolling delay
 
         if (!_diceManager.diceLaunch)
         {
             _diceManager.resultFinal = 0;
-            _diceManager.CreateDice(2);
-            _camera.transform.position = new Vector3((float)(60.61), (float)(5), (float)(-31.6));
-            _camera.transform.rotation = new Quaternion(Mathf.Deg2Rad * 58, 0, 0, 1);
+            _diceManager.create_dice(2); // Create dice for rolling
         }
 
+        // Wait until the dice roll is complete
         while (_diceManager.diceLaunch)
         {
             if (_diceManager.resultFinal != 0)
             {
                 _diceManager.diceLaunch = false;
                 _currentDiceRollValue = _diceManager.resultFinal;
-                _camera.transform.position = new Vector3((float)(0), (float)(0), (float)(0));
-                _camera.transform.rotation = new Quaternion(0, 0, 0, 1);
 
-                Debug.Log(_diceManager.resultFinal);
+                Debug.Log($"Dice result: {_diceManager.resultFinal}");
             }
 
             yield return null;
         }
 
-        _processRollDiceCoroutine = null;
 
-        Debug.Log("End Roll dice");
-
-        yield return null;
+        Debug.Log("End Roll Dice");
+        ProcessNextStep();
     }
 
+    /// <summary>
+    /// Handles the effects triggered by the dice roll.
+    /// </summary>
     private IEnumerator ProcessEffects()
     {
-        yield return new WaitForSeconds(1);
-
-        Debug.Log("Enter Effects process");
-
-
-        while (_processEffectsCoroutine != null || _processRollDiceCoroutine != null)
-            yield return null;
+        Debug.Log("Processing Effects...");
+        //yield return new WaitForSeconds(1); // Simulate effects processing delay
 
         Queue<CardEffectSO> effectsQueue = new Queue<CardEffectSO>();
 
-        // Process current player effects
+        // Process current player's card effects
+        foreach (CardComponent card in _currentPlayer.Cards)
         {
-            foreach (CardComponent card in _currentPlayer.Cards)
+            if (/*card.CardSO.ActivationNumber == _currentDiceRollValue &&*/
+                (card.CardSO.ActivationType == CardActivationType.SelfTurn || card.CardSO.ActivationType == CardActivationType.AllTurn))
             {
-                if (card.CardSO.ActivationNumber != _currentDiceRollValue ||
-                    (card.CardSO.ActivationType != CardActivationType.SelfTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
-                    continue;
-
                 effectsQueue.Enqueue(card.CardSO.Effect);
             }
-
-            ApplyNextEffect(effectsQueue, _player, _ai);
         }
 
-
-        // Process opponent effects
+        // Process opponent's card effects
+        foreach (CardComponent card in _currentOpponent.Cards)
         {
-            foreach (CardComponent card in _currentOpponent.Cards)
+            if (card.CardSO.ActivationNumber == _currentDiceRollValue &&
+                (card.CardSO.ActivationType == CardActivationType.OpponentTurn || card.CardSO.ActivationType == CardActivationType.AllTurn))
             {
-                if (card.CardSO.ActivationNumber != _currentDiceRollValue ||
-                    (card.CardSO.ActivationType != CardActivationType.OpponentTurn && card.CardSO.ActivationType != CardActivationType.AllTurn))
-                    continue;
-
                 effectsQueue.Enqueue(card.CardSO.Effect);
             }
-
-            ApplyNextEffect(effectsQueue, _ai, _player);
         }
 
-        effectsQueue.Clear();
+        Debug.Log(" Effects queue : " + effectsQueue);
 
-        Debug.Log("End process effects");
-        _processEffectsCoroutine = null;
+
+        // Apply the effects sequentially
+        ApplyNextEffect(effectsQueue, _currentPlayer, _currentOpponent);
+
+        Debug.Log("End Process Effects");
 
         yield return null;
     }
 
+    /// <summary>
+    /// Handles the card-buying phase.
+    /// </summary>
     private IEnumerator ProcessBuyCard()
     {
-        yield return new WaitForSeconds(1);
+        Debug.Log("Enter buy card process...");
+        yield return new WaitForSeconds(1); // Optionnel : d�lai avant de commencer la s�lection
 
-        Debug.Log("Enter buy process");
+        CardSO selectedCard = null;
 
+        // Add listener
+        //CardComponent.OnCardSelected += (CardSO card) =>
+        //{
+        //    selectedCard = card;
+        //};
 
-        while (_processRollDiceCoroutine != null || _processBuyCardCoroutine != null)
+        // Wait for a card
+
+        Debug.Log($"Wait for card ...");
+        while (selectedCard == null)
             yield return null;
 
-        //Player case
-        if ((_currentGameState == GameState.PlayerTurn && _currentPlayer is not PlayerComponent) || (_currentGameState == GameState.AITurn && _currentPlayer is not AIComponent))
-            yield break;
+        // Remove listener
+        //CardComponent.OnCardSelected -= (CardSO card) =>
+        //{
+        //    selectedCard = card;
+        //};
 
-        //IA case
+        Debug.Log($"Selected card : {selectedCard.name}");
 
+        // Buy a card
+        if (_piles.DrawCard(selectedCard) && _currentPlayer.BuyCard(selectedCard))
+            Debug.Log($"Card : {selectedCard.name}");
+        else
+            Debug.Log("End Process Buy card");
 
-        //ask for a card
-        //Display card menu  
-        CardSO card = null;/*TryBuyCard()*/
-
-        //if (!_piles.DrawCard(card))
-        //    yield break;
-
-        //if (!_currentPlayer.BuyCard(card))
-        //    yield break;
-
-
-        EndTurn();
-
-        Debug.Log("End Roll dice");
-        _processBuyCardCoroutine = null;
-
-        yield return null;
+        Debug.Log("End process");
     }
 
+
+    /// <summary>
+    /// Ends the current player's or AI's turn.
+    /// </summary>
     private void EndTurn()
     {
         if (_currentPlayer is PlayerComponent)
@@ -298,30 +311,42 @@ public class GameRunner : MonoBehaviour
             EndAITurn();
     }
 
+    /// <summary>
+    /// Ends the player's turn and starts the AI's turn.
+    /// </summary>
     private void EndPlayerTurn()
     {
-        Debug.Log("End player turn");
+        Debug.Log("Player Turn Ended");
         _currentGameState = GameState.AITurn;
         AITurn();
     }
 
+    /// <summary>
+    /// Ends the AI's turn and starts the player's turn.
+    /// </summary>
     private void EndAITurn()
     {
-        Debug.Log("End ai turn");
+        Debug.Log("AI Turn Ended");
         _currentGameState = GameState.PlayerTurn;
         PlayerTurn();
     }
 
     /// <summary>
-    /// Get the next effect handler.
+    /// Applies the next effect in the queue, recursively processing all effects.
     /// </summary>
-    /// <param name="handlers">Returns the next handler if exists.</param>
     private void ApplyNextEffect(Queue<CardEffectSO> effectsQueue, EntityComponent user, EntityComponent opponent)
     {
+        Debug.Log(" Effects queue : " + effectsQueue);
+
+        if (effectsQueue.Count <= 0)
+            ProcessNextStep();
+
         CardEffectSO effect = effectsQueue.Count > 0 ? effectsQueue.Dequeue() : null;
 
         if (effect == null)
             return;
+
+        Debug.Log("Effect processing : " + effect.name);
 
         effect.ApplyEffect(user, opponent, () => ApplyNextEffect(effectsQueue, user, opponent));
     }
@@ -330,11 +355,13 @@ public class GameRunner : MonoBehaviour
 
     #region Public API
 
+    /// <summary>
+    /// Attempts to buy a card. Placeholder for future implementation.
+    /// </summary>
     public CardSO TryBuyCard(CardSO card)
     {
         return card;
     }
 
     #endregion
-
 }
