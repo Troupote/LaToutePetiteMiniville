@@ -41,10 +41,18 @@ public class MainMenuRunner : MonoBehaviour
     
     public void Credits()
     {
-        AppManager.Instance.Credits();
+        CreditTextMove.direction = "up";
+        ButtonMovement.direction = "down";
         CreditButtonSound.Play();
     }
     
+    public void Leave_Credits()
+    {
+        CreditTextMove.direction = "down";
+        ButtonMovement.direction = "up";
+        QuitButtonSound.Play();
+    }
+
     public void Quit()
     {
         AppManager.Instance.Quit();

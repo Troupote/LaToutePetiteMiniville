@@ -108,16 +108,11 @@ public class GameRunner : MonoBehaviour
         {
             _diceScript.resultFinal = 0;
             _diceScript.create_dice(2);
-            _camera.transform.position = new Vector3((float)(60.61),(float)(5), (float)(-31.6));
-            _camera.transform.rotation = new Quaternion(Mathf.Deg2Rad*58,0,0,1);
         }
         if (_diceScript.resultFinal != 0 && _diceScript.diceLaunch)
         {
             _diceScript.diceLaunch = false;
             dicesValue = _diceScript.resultFinal; 
-            _camera.transform.position = new Vector3((float)(0), (float)(0), (float)(0));
-            _camera.transform.rotation = new Quaternion(0, 0, 0, 1);
-            Debug.Log(_diceScript.resultFinal);
         }
 
         // Dice.Roll(_currentPlayer);

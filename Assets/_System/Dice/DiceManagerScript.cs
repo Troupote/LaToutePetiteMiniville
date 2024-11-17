@@ -13,7 +13,6 @@ public class DiceManagerScript : MonoBehaviour
         nbDiceRolling = nbDice;
         for (int i = 0; i < nbDice; i++) 
         {
-            Debug.Log("hey");
             Instantiate(diceObject);
         }
     }
