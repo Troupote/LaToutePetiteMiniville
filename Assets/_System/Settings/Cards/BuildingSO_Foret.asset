@@ -17,7 +17,7 @@ MonoBehaviour:
   _renderer: {fileID: 2920608914531314678, guid: 2eee9ceb9dba5c241a331df8f7c67757, type: 3}
   _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 0
-  _activationNumber: 5
+  _activationNumbers: 0500000005000000
   _cost: 3
   _effect: {fileID: 11400000, guid: 96f43eed09b377a45ab217696b49b8a1, type: 2}
   _isUnique: 0
