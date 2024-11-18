@@ -164,6 +164,8 @@ public class GameRunner : MonoBehaviour
     {
         Debug.Log("Rolling Dice...");
 
+        yield return new WaitForSeconds(3);
+
         if (!_diceManager.diceLaunch)
         {
             _diceManager.resultFinal = 0;
@@ -179,7 +181,8 @@ public class GameRunner : MonoBehaviour
                 _diceManager.diceLaunch = false;
                 _currentDiceRollValue = _diceManager.resultFinal;
                 Debug.Log($"Dice result: {_diceManager.resultFinal}");
-            }            yield return null;
+            }
+            yield return null;
         }
 
         Debug.Log("End Roll Dice");
