@@ -45,7 +45,7 @@ public class AIComponent : EntityComponent
         }
 
         // Update the AI's coins
-        Add_SubstarctCoins(-card.Cost);
+        Add_SubstarctCoins(-card.Cost, null);
 
         // Update the available card pile
         if (piles.Piles.ContainsKey(card))

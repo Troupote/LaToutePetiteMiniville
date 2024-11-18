@@ -15,7 +15,7 @@ public class PlayerComponent : EntityComponent
             if (cardComp.CardSO == card && cardComp.CardSO is BuildingSO building && building.IsUnique)
             {
                 Debug.Log($"La carte {card.Name} est déjà dans votre main.");
-                yield break;  
+                yield break;
             }
         }
 
@@ -25,13 +25,13 @@ public class PlayerComponent : EntityComponent
             yield break;
         }
 
-        Add_SubstarctCoins(-card.Cost);
+        Add_SubstarctCoins(-card.Cost, null);
 
         if (piles.Piles.ContainsKey(card))
         {
             piles.Piles[card]--;
             if (piles.Piles[card] <= 0)
-                piles.Piles.Remove(card); 
+                piles.Piles.Remove(card);
         }
 
         Debug.Log($"Achat réussi! Carte {card.Name} ajoutée à votre main.");

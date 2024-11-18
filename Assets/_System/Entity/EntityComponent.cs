@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.Events;
 using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class EntityComponent : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public abstract class EntityComponent : MonoBehaviour
     private string _name = string.Empty;
     private int _coins = 0;
     private List<CardComponent> _cards = new();
-    private int _diceCount = 0;
+    private int _diceCount = 1;
     protected UnityEvent<EntityComponent, CardSO> _onBuyCard = new();
     #endregion
 
@@ -29,11 +30,17 @@ public abstract class EntityComponent : MonoBehaviour
     public List<CardComponent> Cards { get => _cards; protected set => _cards = value; } // Propriété avec 'protected set'
 
     // Méthode pour ajouter ou soustraire des pièces
-    public int Add_SubstarctCoins(int amount)
+    public int Add_SubstarctCoins(int amount, Action onDone)
     {
         int value = _coins + amount;
         _coinText.text = $"{value}";
         _coins = value;
+
+        if (onDone != null)
+        {
+            onDone.Invoke();
+            Debug.Log("Add coin EFFECT");
+        }
         return value;
     }
 
@@ -52,13 +59,19 @@ public abstract class EntityComponent : MonoBehaviour
         }
     }
 
-    public void UnlockDice()
+    public void UnlockDice(Action onDone)
     {
+        _diceCount++;
+        _diceCount = Mathf.Clamp(_diceCount, 1, 2);
 
+        Debug.Log("Dice count : " + _diceCount);
+        Debug.Log("unlock dice EFFECT");
+        onDone.Invoke();
     }
 
     public void Exchange(EntityComponent opponent)
     {
+        Debug.Log("Exchange EFFECT");
 
     }
 
