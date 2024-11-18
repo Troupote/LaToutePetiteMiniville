@@ -19,5 +19,5 @@ MonoBehaviour:
   _activationType: 0
   _activationNumber: 9
   _cost: 6
-  _effect: {fileID: 11400000, guid: 4b9bb17211db7ea449106b7844889312, type: 2}
+  _effect: {fileID: 11400000, guid: 2cad5c2cb0ced0942b564f6a4d216ad1, type: 2}
   _isUnique: 0

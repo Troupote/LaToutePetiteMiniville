@@ -151,6 +151,7 @@ public class GameRunner : MonoBehaviour
         }
         else
         {
+            _currentDiceRollValue = 0;
             Debug.Log("End of turn.");
             EndTurn();
         }
@@ -258,7 +259,7 @@ public class GameRunner : MonoBehaviour
 
         if (!canBuy)
         {
-            Debug.LogWarning("Aucune carte disponible à acheter.");
+            Debug.LogWarning("No more cards available.");
             NextProcess();
             yield break;
         }

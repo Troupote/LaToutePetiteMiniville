@@ -1,4 +1,3 @@
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -67,23 +66,18 @@ public class BoardCardComponent : MonoBehaviour
         _targetHand = _currentPlayer is PlayerComponent ? FindFirstObjectByType<PlayerHand>().transform : FindFirstObjectByType<AIHand>().transform;
         Debug.LogWarning("Container :." + _targetHand.name);
 
-        // Build the CardComponent using the CardSO and add it to the player's hand
         CardComponent newCard = card.Build(transform.position, Quaternion.identity, _targetHand);
 
-        // Add the new card to the player's hand
         PlayerComponent playerComponent = _currentPlayer as PlayerComponent;
         if (playerComponent != null)
         {
             playerComponent.Cards.Add(newCard);
         }
 
-        // Update the card container to reflect the new card
         ResizeCardContainerComponent container = _targetHand.GetComponent<ResizeCardContainerComponent>();
         if (container != null)
         {
             container.Resize();
         }
-
-        // Optionally, update any UI elements or animations here
     }
 }
