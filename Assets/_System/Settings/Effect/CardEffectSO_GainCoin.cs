@@ -19,8 +19,7 @@ public class CardEffectSO_GainCoin : CardEffectSO
 
     public override void ApplyEffect(EntityComponent user, EntityComponent opp, Action onDone)
     {
-        user.Add_SubstarctCoins(GainCoinAmount);
-        onDone.Invoke();
+        user.Add_SubstarctCoins(GainCoinAmount, onDone);
     }
 
     #endregion
