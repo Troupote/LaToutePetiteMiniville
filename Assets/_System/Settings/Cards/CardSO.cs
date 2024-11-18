@@ -31,7 +31,7 @@ public abstract class CardSO : ScriptableObject
 
     [Tooltip("The value required when rolling dice to trigger this card.")]
     [SerializeField]
-    private int _activationNumber = 0;
+    private int[] _activationNumbers = {};
 
     [Tooltip("The amount of coin requiered to buy this card.")]
     [SerializeField]
@@ -58,7 +58,7 @@ public abstract class CardSO : ScriptableObject
     public CardActivationType ActivationType => _activationType;
 
     /// <inheritdoc cref="_activationNumber"/>
-    public int ActivationNumber => _activationNumber;
+    public int[] ActivationNumbers => _activationNumbers;
 
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;

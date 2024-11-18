@@ -201,7 +201,7 @@ public class GameRunner : MonoBehaviour
         foreach (CardComponent card in _currentPlayer.Cards)
         {
             if ((card.CardSO.ActivationType == CardActivationType.SelfTurn || card.CardSO.ActivationType == CardActivationType.AllTurn)
-                && card.CardSO.ActivationNumber == _currentDiceRollValue)
+                && (card.CardSO.ActivationNumbers[0] == _currentDiceRollValue || card.CardSO.ActivationNumbers[1] == _currentDiceRollValue))
             {
                 playerEffectsQueue.Enqueue(card.CardSO.Effect);
                 Debug.Log($"Enqueued effect of card {card.CardSO.Name} for current player.");
@@ -224,7 +224,7 @@ public class GameRunner : MonoBehaviour
         foreach (CardComponent card in _currentOpponent.Cards)
         {
             if ((card.CardSO.ActivationType == CardActivationType.OpponentTurn || card.CardSO.ActivationType == CardActivationType.AllTurn)
-                && card.CardSO.ActivationNumber == _currentDiceRollValue)
+                && (card.CardSO.ActivationNumbers[0] == _currentDiceRollValue || card.CardSO.ActivationNumbers[1] == _currentDiceRollValue))
             {
                 opponentEffectsQueue.Enqueue(card.CardSO.Effect);
                 Debug.Log($"Enqueued effect of card {card.CardSO.Name} for opponent.");
