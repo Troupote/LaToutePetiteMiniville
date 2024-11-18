@@ -32,6 +32,13 @@ public abstract class EntityComponent : MonoBehaviour
     // Méthode pour ajouter ou soustraire des pièces
     public int Add_SubstarctCoins(int amount, Action onDone)
     {
+
+        if (this is PlayerComponent)
+            Debug.LogWarning("Player effects");
+        if (this is AIComponent)
+            Debug.LogWarning("AI effects");
+            
+
         int value = _coins + amount;
         _coinText.text = $"{value}";
         _coins = value;

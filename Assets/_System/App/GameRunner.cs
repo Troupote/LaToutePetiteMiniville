@@ -200,7 +200,6 @@ public class GameRunner : MonoBehaviour
     private IEnumerator ProcessEffects()
     {
         Debug.Log("Processing Effects...");
-        Debug.LogWarning("Effects for dice roll: " + _currentDiceRollValue);
 
         Queue<CardEffectSO> playerEffectsQueue = new Queue<CardEffectSO>();
 
@@ -256,9 +255,13 @@ public class GameRunner : MonoBehaviour
     /// </summary>
     private IEnumerator ProcessBuyCard()
     {
+        Debug.LogWarning("Current player : " + _currentPlayer is PlayerComponent);
+
         Debug.Log($"Processing buy card...");
 
-        _boardCanvas.gameObject.SetActive(true);
+
+        if (_currentPlayer is PlayerComponent)
+            _boardCanvas.gameObject.SetActive(true);
 
         bool canBuy = CanBuy();
 
@@ -269,13 +272,21 @@ public class GameRunner : MonoBehaviour
             yield break;
         }
 
+        if (_currentPlayer is AIComponent)
+        {
+            List<CardSO> availableCards = _piles.GetAvailableCards();
+            _cardToBuy = availableCards[Random.Range(0, availableCards.Count)];
+        }
+
         while (_cardToBuy == null)
             yield return null;
 
         yield return _currentPlayer.ProcessBuyCard(_piles, _cardToBuy);
 
         _cardToBuy = null;
-        _boardCanvas.gameObject.SetActive(false);
+
+        if (_currentPlayer is PlayerComponent)
+            _boardCanvas.gameObject.SetActive(false);
 
 
         NextProcess();
@@ -298,8 +309,6 @@ public class GameRunner : MonoBehaviour
         return false;
     }
 
-
-
     /// <summary>
     /// Ends the current turn and transitions to the next.
     /// </summary>
@@ -308,12 +317,12 @@ public class GameRunner : MonoBehaviour
         if (_currentPlayer is PlayerComponent)
         {
             Debug.Log("Player Turn Ended");
-            StartTurn(_ai, _player);  // Switch to AI's turn
+            StartTurn(_ai, _player);
         }
         else
         {
             Debug.Log("AI Turn Ended");
-            StartTurn(_player, _ai);  // Switch back to Player's turn
+            StartTurn(_player, _ai);
         }
     }
 
@@ -333,7 +342,6 @@ public class GameRunner : MonoBehaviour
 
     public EntityComponent CurrentPlayer => _currentPlayer;
     public GameConfigSO Config => _config;
-
 
     public void SelectCardToBuy(EntityComponent player, CardSO card)
     {

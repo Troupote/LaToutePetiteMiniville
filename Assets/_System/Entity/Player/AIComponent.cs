@@ -64,6 +64,22 @@ public class AIComponent : EntityComponent
                 }
             }
 
+            Transform aiHand = FindFirstObjectByType<AIHand>().transform;
+            if (aiHand == null)
+            {
+                Debug.LogError("AIHand not found in the scene.");
+                yield break;
+            }
+
+            CardComponent newCard = card.Build(aiHand.position, Quaternion.identity, aiHand);
+            Cards.Add(newCard); 
+
+            ResizeCardContainerComponent container = aiHand.GetComponent<ResizeCardContainerComponent>();
+            if (container != null)
+            {
+                container.Resize();
+            }
+
             _onBuyCard.Invoke(this, card);
 
             Debug.Log($"AI successfully purchased the card: {card.Name}");
@@ -71,9 +87,12 @@ public class AIComponent : EntityComponent
         }
 
         if (!cardBought)
+        {
             Debug.LogWarning("AI could not buy any cards.");
+        }
 
         yield return null;
     }
+
 
 }
