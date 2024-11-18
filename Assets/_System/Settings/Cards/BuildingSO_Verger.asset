@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d266c56c59f40c498d600a8a62dd480, type: 3}
+  m_Name: BuildingSO_Verger
+  m_EditorClassIdentifier: 
+  _name: Verger
+  _description: 
+  _renderer: {fileID: 3768508510228984187, guid: 579524982bceaaf47bd7e6c5a0222781, type: 3}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
+  _activationType: 0
+  _activationNumbers: 0a0000000a000000
+  _cost: 3
+  _effect: {fileID: 11400000, guid: 2cad5c2cb0ced0942b564f6a4d216ad1, type: 2}
+  _isUnique: 0

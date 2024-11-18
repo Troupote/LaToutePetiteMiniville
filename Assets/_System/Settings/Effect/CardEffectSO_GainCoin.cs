@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GainCoin", menuName = "Game/Effect/Gain Coin", order = 0)]
@@ -16,9 +17,9 @@ public class CardEffectSO_GainCoin : CardEffectSO
     ///<inheritdoc cref="_gainCoinAmount"/>
     public int GainCoinAmount => _gainCoinAmount; 
 
-    public override void ApplyEffect(EntityComponent user, EntityComponent opp)
+    public override void ApplyEffect(EntityComponent user, EntityComponent opp, Action onDone)
     {
-        user.IncrementCoins(GainCoinAmount);
+        user.Add_SubstarctCoins(GainCoinAmount, onDone);
     }
 
     #endregion

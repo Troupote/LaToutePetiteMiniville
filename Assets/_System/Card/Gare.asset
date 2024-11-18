@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecf33025f523a048be70a358f577978, type: 3}
+  m_Name: Gare
+  m_EditorClassIdentifier: 
+  _name: Gare
+  _description: "Permet de lancer deux d\xE9s au lieu d'un seul \xE0 chaque tour,
+    ce qui augmente vos possibilit\xE9s."
+  _renderer: {fileID: 1333162273776024625, guid: c11ad8e7f9a722d4eaad6eee0762c92c, type: 3}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
+  _activationType: 0
+  _activationNumber: 0
+  _cost: 4
+  _effect: {fileID: 0}

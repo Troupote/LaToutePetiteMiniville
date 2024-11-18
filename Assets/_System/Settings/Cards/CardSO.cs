@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public abstract class CardSO : ScriptableObject
 
     [Tooltip("The card renderer")]
     [SerializeField]
-    private Image _renderer = null;
+    private Sprite _renderer = null;
 
     [Tooltip("The card prefab")]
     [SerializeField]
@@ -30,7 +31,7 @@ public abstract class CardSO : ScriptableObject
 
     [Tooltip("The value required when rolling dice to trigger this card.")]
     [SerializeField]
-    private int _activationNumber = 0;
+    private int[] _activationNumbers = {};
 
     [Tooltip("The amount of coin requiered to buy this card.")]
     [SerializeField]
@@ -51,13 +52,13 @@ public abstract class CardSO : ScriptableObject
     public string Description => _description;
 
     ///<inheritdoc cref="_renderer"/>
-    public Image Renderer => _renderer;
+    public Sprite Renderer => _renderer;
 
     ///<inheritdoc cref="_color"/>
     public CardActivationType ActivationType => _activationType;
 
     /// <inheritdoc cref="_activationNumber"/>
-    public int ActivationNumber => _activationNumber;
+    public int[] ActivationNumbers => _activationNumbers;
 
     ///<inheritdoc cref="_cost"/>
     public int Cost => _cost;
@@ -70,26 +71,27 @@ public abstract class CardSO : ScriptableObject
     /// Build a card using this <see cref="CardSO"/>
     /// </summary>
     /// <returns>Returns the built <see cref="CardComponent"/>.</returns>
-    public CardComponent Build()
+    public CardComponent Build(Vector3 position, Quaternion rotation, Transform parent)
     {
-        GameObject cardObj = Instantiate(_prefab);
+        GameObject cardObj = Instantiate(_prefab, position, rotation, parent);
 
         if (!cardObj.TryGetComponent<CardComponent>(out CardComponent card))
         {
-            Debug.LogError("Failed building card");
+            Debug.LogError("Failed building card.");
             return null;
         }
-        card.SetAsset(this);
 
+        card.SetAsset(this);
         return card;
     }
+
 
     /// <summary>
     /// Apply the card effect.
     /// </summary>
-    public void ApplyEffect()
+    public void ApplyEffect(EntityComponent user, EntityComponent opponent, Action onDone)
     {
-        //@todo Card Effect
+        _effect.ApplyEffect(user, opponent, onDone);
     }
 
     #endregion

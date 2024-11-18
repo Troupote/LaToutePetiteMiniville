@@ -1,18 +1,15 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// @todo
+/// </summary>
 
-public class NewEmptyCSharpScript : MonoBehaviour 
+public class DiceCheckZoneScript : MonoBehaviour 
 {
-    public Text diceText;
+
+    [SerializeField]
+    private DiceManager _diceScript = null;
     public static int finalCount = 0;
-
-    void FixedUpdate()
-    {
-        diceText.text = finalCount.ToString();
-    }
-
     void OnTriggerStay(Collider col)
     {
         if (col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.x == 0f && col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.y == 0f && col.gameObject.GetComponentInParent<Rigidbody>().linearVelocity.z == 0f)
@@ -38,7 +35,10 @@ public class NewEmptyCSharpScript : MonoBehaviour
                     finalCount += 1;
                     break;
             }
+
             Destroy(col.gameObject);
+            _diceScript.nbDiceRolling -= 1;
+
         }
     }
 }

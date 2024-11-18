@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a56a6e1ba9a8614abae218d9d124ea0, type: 3}
   m_Name: EntityConfigSO
   m_EditorClassIdentifier: 
-  _coins: 10
+  _coins: 3
+  _initialCards:
+  - {fileID: 11400000, guid: 6a90c545dae0c7b4189f5bacd936927b, type: 2}
+  - {fileID: 11400000, guid: 908c5b09a2c6134478e744616c10e748, type: 2}
