@@ -51,6 +51,14 @@ public class GameRunner : MonoBehaviour
     [Range(0, 1)]
     private float _volume = 0.6f;
 
+    [SerializeField]
+    private GameObject _canvasWin;
+
+    [SerializeField]
+    private GameObject _canvasLoose;
+
+    [SerializeField]
+    private GameObject _flou;
     /// <summary>
     /// The deck/pile used for drawing cards
     /// </summary>
@@ -342,5 +350,24 @@ public class GameRunner : MonoBehaviour
     {
         Debug.Log($"Attempting to buy card: {card.Name} for player: {player.name}");
         _cardToBuy = card;
+    }
+
+    public void Update()
+    {
+        if (_currentPlayer.Coins >= 20 )
+        {
+            if (_currentPlayer is PlayerComponent)
+            {
+                _canvasWin.SetActive(true);
+                _flou.SetActive(true);
+            }
+            else
+            {
+                _canvasLoose.SetActive(true);
+                _flou.SetActive(true);
+
+            }
+        }
+
     }
 }
