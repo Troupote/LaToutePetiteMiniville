@@ -13,7 +13,7 @@ public class ZoomCard : MonoBehaviour
 
     public void ZoomOnCard()
     {
-        if (_gameObject.parent.name == "Player Hand")
+        if (_gameObject.parent.name == "Player Hand" )
         {
             _gameObject.DOKill();
             _positionInit = _gameObject.anchoredPosition.x;

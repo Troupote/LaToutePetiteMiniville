@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class AIHand : MonoBehaviour
-{
-
-}
+public class AIHand : MonoBehaviour { }
