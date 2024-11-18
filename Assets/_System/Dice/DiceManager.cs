@@ -12,14 +12,17 @@ public class DiceManager : MonoBehaviour
 
     [HideInInspector]
     public bool diceLaunch = false;
-    
+
+    [SerializeField]
+    private Transform _diceParent;
     public void CreateDice(int nbDice)
     {
         diceLaunch = true;
         nbDiceRolling = nbDice;
+        DiceCheckZoneScript.finalCount = 0;
         for (int i = 0; i < nbDice; i++) 
         {
-            Instantiate(diceObject);
+            Instantiate(diceObject, _diceParent);
         }
     }
     public void Update()

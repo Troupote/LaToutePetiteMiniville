@@ -18,16 +18,18 @@ public class ResizeCardContainerComponent : MonoBehaviour
             }
         }
 
-        // Calculer le nouvel espacement
+        /* Calculer le nouvel espacement
         if (count > 0) // Éviter la division par zéro
         {
             float newSpacingX = (1200 - (120 * count)) / (float)count;
             _horizontaldLayout.spacing = newSpacingX; // Assigner un nouveau Vector2
         }
-        else if (count == 9)
+        */
+
+        if (count > 9)
         {
             float newSpacingX = -200;
-            _horizontaldLayout.spacing =newSpacingX; // Assigner un nouveau Vector2
+            _horizontaldLayout.spacing = (1200 - (120 * count)) / (float)count; // Assigner un nouveau Vector2
         }
     }
 }
