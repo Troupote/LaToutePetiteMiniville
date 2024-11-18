@@ -352,9 +352,22 @@ public class GameRunner : MonoBehaviour
         _cardToBuy = card;
     }
 
+    public void TurnPass()
+    {
+        var p1 = _currentOpponent;
+        var p2 = _currentPlayer;
+
+        _boardCanvas.gameObject.SetActive(false);
+
+        StopAllCoroutines();
+
+        StartTurn(p1, p2);
+
+    }
+
     public void Update()
     {
-        if (_currentPlayer.Coins >= 20 )
+        if (_currentPlayer.Coins >= 20)
         {
             if (_currentPlayer is PlayerComponent)
             {
