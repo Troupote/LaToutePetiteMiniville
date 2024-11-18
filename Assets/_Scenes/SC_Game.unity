@@ -4348,7 +4348,7 @@ Transform:
   m_GameObject: {fileID: 1435825956}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 31}
+  m_LocalPosition: {x: 0, y: 0, z: 46}
   m_LocalScale: {x: 1.6196, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4373,7 +4373,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 15, y: 1, z: 15}
+  m_Size: {x: 30, y: 30, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1435825959
 MonoBehaviour:
@@ -5990,7 +5990,7 @@ MonoBehaviour:
   _diceManager: {fileID: 504229666}
   _boardCanvas: {fileID: 508576482}
   _gameMusic: {fileID: 1271627387}
-  _volume: 0
+  _volume: 0.2
   _canvasWin: {fileID: 1475927157}
   _canvasLoose: {fileID: 201001891}
   _flou: {fileID: 1517297096}
