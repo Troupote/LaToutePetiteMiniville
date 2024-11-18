@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 097a9032547cee441b127cde0bcc8b65
+guid: 7f5ff3d91d2981e45b9031238cc4e3fa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 786411884896596508
-    second: Lose_screen_0
-  - first:
-      213: -8504901260807103624
-    second: Lose_screen_1
-  - first:
-      213: -4751553466694115803
-    second: Lose_screen_2
-  - first:
-      213: 414945949821131022
-    second: Lose_screen_3
-  - first:
-      213: 722288510234066244
-    second: Lose_screen_4
+      213: 5211806066118790055
+    second: Lose_screen_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lose_screen_0
+      name: Lose_screen_1_0
       rect:
         serializedVersion: 2
-        x: 225
-        y: 457
-        width: 152
-        height: 541
+        x: 0
+        y: 0
+        width: 1500
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,96 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1238665175e9ea00800000000000000
-      internalID: 786411884896596508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lose_screen_1
-      rect:
-        serializedVersion: 2
-        x: 980
-        y: 684
-        width: 477
-        height: 293
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 87b12db3d5588f980800000000000000
-      internalID: -8504901260807103624
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lose_screen_2
-      rect:
-        serializedVersion: 2
-        x: 428
-        y: 375
-        width: 705
-        height: 301
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 52edb6efb471f0eb0800000000000000
-      internalID: -4751553466694115803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lose_screen_3
-      rect:
-        serializedVersion: 2
-        x: 197
-        y: 80
-        width: 487
-        height: 276
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e095314942f22c500800000000000000
-      internalID: 414945949821131022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lose_screen_4
-      rect:
-        serializedVersion: 2
-        x: 873
-        y: 178
-        width: 548
-        height: 142
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 44df8ddb295160a00800000000000000
-      internalID: 722288510234066244
+      spriteID: 7ab8c39f00e045840800000000000000
+      internalID: 5211806066118790055
       vertices: []
       indices: 
       edges: []
@@ -234,12 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Lose_screen_0: 786411884896596508
-      Lose_screen_1: -8504901260807103624
-      Lose_screen_2: -4751553466694115803
-      Lose_screen_3: 414945949821131022
-      Lose_screen_4: 722288510234066244
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
