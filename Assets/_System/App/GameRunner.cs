@@ -278,7 +278,12 @@ public class GameRunner : MonoBehaviour
         if (_currentPlayer is AIComponent)
         {
             List<CardSO> availableCards = _piles.GetAvailableCards();
+            if(availableCards.Count <= 0)
+            {
+                NextProcess();
+            }
             _cardToBuy = availableCards[Random.Range(0, availableCards.Count)];
+
         }
 
         while (_cardToBuy == null)
