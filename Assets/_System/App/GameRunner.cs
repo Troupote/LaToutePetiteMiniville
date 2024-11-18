@@ -164,7 +164,7 @@ public class GameRunner : MonoBehaviour
     {
         Debug.Log("Rolling Dice...");
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
 
         if (!_diceManager.diceLaunch)
         {
