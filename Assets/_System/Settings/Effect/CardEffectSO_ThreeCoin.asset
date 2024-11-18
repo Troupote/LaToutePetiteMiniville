@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eaac7b60a88fca4e87b1ebf216f93f3, type: 3}
   m_Name: CardEffectSO_ThreeCoin
   m_EditorClassIdentifier: 
-  _gainCoin: 3
+  _gainCoinAmount: 3

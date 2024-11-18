@@ -39,9 +39,9 @@ public abstract class EntityComponent : MonoBehaviour
             Debug.LogWarning("AI effects");
 
 
-        int value = _coins + amount;
+        int value = Coins + amount;
         _coinText.text = $"{value}";
-        _coins = value;
+        Coins = value;
 
         if (onDone != null)
         {
