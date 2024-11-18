@@ -56,6 +56,9 @@ public class GameRunner : MonoBehaviour
 
     [SerializeField]
     private GameObject _canvasLoose;
+
+    [SerializeField]
+    private GameObject _flou;
     /// <summary>
     /// The deck/pile used for drawing cards
     /// </summary>
@@ -351,9 +354,20 @@ public class GameRunner : MonoBehaviour
 
     public void Update()
     {
-        if (_player.Coins >= 20)
+        if (_currentPlayer.Coins >= 20 )
         {
-            _canvasWin.SetActive(true);
+            if (_currentPlayer is PlayerComponent)
+            {
+                _canvasWin.SetActive(true);
+                _flou.SetActive(true);
+            }
+            else
+            {
+                _canvasLoose.SetActive(true);
+                _flou.SetActive(true);
+
+            }
         }
+
     }
 }
