@@ -14,14 +14,15 @@ public class PlayerComponent : EntityComponent
         {
             if (cardComp.CardSO == card && cardComp.CardSO is BuildingSO building && building.IsUnique)
             {
-                Debug.Log($"La carte {card.Name} est déjà dans votre main.");
+                Debug.Log($"The card {card.Name} is unique");
                 yield break;
             }
         }
 
         if (Coins < card.Cost)
         {
-            Debug.LogError($"Pas assez de pièces pour acheter la carte: {card.Name}");
+            Debug.LogWarning($"Player cannot purchase the card: {card.Name}. Available: {Coins}, Required: {card.Cost}");
+
             yield break;
         }
 

@@ -68,11 +68,7 @@ public class BoardCardComponent : MonoBehaviour
 
         CardComponent newCard = card.Build(transform.position, Quaternion.identity, _targetHand);
 
-        PlayerComponent playerComponent = _currentPlayer as PlayerComponent;
-        if (playerComponent != null)
-        {
-            playerComponent.Cards.Add(newCard);
-        }
+        _currentPlayer.Cards.Add(newCard);
 
         ResizeCardContainerComponent container = _targetHand.GetComponent<ResizeCardContainerComponent>();
         if (container != null)
