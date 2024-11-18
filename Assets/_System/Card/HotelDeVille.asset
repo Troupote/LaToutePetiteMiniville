@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecf33025f523a048be70a358f577978, type: 3}
   m_Name: HotelDeVille
   m_EditorClassIdentifier: 
-  _name: 
-  _description: 
+  _name: Hotel de Ville
+  _description: "Peut offrir une pi\xE8ce minimale aux joueurs lors de leur tour
+    s'ils n'ont rien d'autre."
   _renderer: {fileID: 0}
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 6491225618656560986, guid: 7fc3a1f9b25bc49499aef7e1ba798c6e, type: 3}
   _activationType: 0
   _activationNumber: 0
-  _cost: 0
+  _cost: 4
   _effect: {fileID: 0}
